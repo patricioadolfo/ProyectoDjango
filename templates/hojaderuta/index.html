@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+    {% if user.is_authenticated %}
+
+        <p>Bienvenido {{ user.get_username }} a <em>Hoja de Ruta</em>, dentro de este sitio crearás, recibirás y verás el estado de tus envíos.</p>
+
+        <h3>{{ nombre }}</h3>
+        
+    {% else %}
+
+        <p> Inicie sesion o registrese para poder acceder al sitio</p>
+
+    {% endif %}  
+
+{% endblock %}
