@@ -15,5 +15,5 @@ El proyecto cuenta con un sector dedicado al servicio de impresión (esta parte 
 Contiene un sector para crear links relacionados con la empresa, estos serán alojados  dentro del footer.
 <h3>Boceto del sitio</h3>
 
-!media/diseñoDSK Image.
+![Texto alternativo](media/diseñoDSK.png)
 
