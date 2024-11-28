@@ -45,6 +45,7 @@ INSTALLED_APPS = [
     'hojaderuta.apps.HojaderutaConfig',
     'perfiles.apps.PerfilesConfig',
     'impresoras.apps.ImpresorasConfig',
+    'link.apps.LinkConfig',
 ]
 
 MIDDLEWARE = [
