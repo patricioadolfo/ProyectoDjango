@@ -1,6 +1,6 @@
-<h1>PROYECTO DJANGO</h1>
+# PROYECTO DJANGO
 
-⁣<h3>Descripción del proyecto</h3>
+## Descripción del proyecto
 
 El proyecto trata de un sitio de envíos y recepción de pedidos. Para que los usuarios carguen envíos desde un nodo al otro, los nodos son pre cargados por la empresa o el administrador, y cuenta con la posibilidad de que el usuario cree diferentes destinos para hacer sus envíos desde nodos a diferentes destinos o de diferentes destinos a los nodos de la empresa. 
 
@@ -14,35 +14,35 @@ El proyecto cuenta con un sector dedicado al servicio de impresión (esta parte 
 
 Contiene un sector para crear links relacionados con la empresa, estos serán alojados  dentro del footer.
 
-<h4>Boceto para escritorio</h4>
+## Boceto para escritorio
 
 ![Diseño para escritorio](media/diseñoDSK.png)
 
 En la parte superior una barra de navegación que contiene de izquierda a derecha: 
     
-1- El nombre del proyecto.
+* El nombre del proyecto.
 
-2- Los botones de navegación:
+* Los botones de navegación:
 
-2.1- Home: lleva a la página principal del proyecto
+    - Home: lleva a la página principal del proyecto
 
-2.2- Qr: Abre un lector de Qr, cada envío generará un qr el cual podrá ser leído por el lector.
+    - Qr: Abre un lector de Qr, cada envío generará un qr el cual podrá ser leído por el lector.
 
-2.3- Envíos: Dirige a un listado de envíos ordenados cronológicamente.
+    - Envíos: Dirige a un listado de envíos ordenados cronológicamente.
 
-2.4- Nodos: Dirige a un listado de Nodos disponibles para realizar los envíos, contiene el detalle de cada nodo (dirección, teléfono, etc.).
+    - Nodos: Dirige a un listado de Nodos disponibles para realizar los envíos, contiene el detalle de cada nodo (dirección, teléfono, etc.).
 
-2.5- Destinos: Al igual que los Nodos nos da un listado de los destinos disponibles, y un formulario para crear nuevos destinos.
+    - Destinos: Al igual que los Nodos nos da un listado de los destinos disponibles, y un formulario para crear nuevos destinos.
 
-3- Nombre o imagen de usuario logueado en el caso de que lo este, de lo contrario un enlace para registrarse.
+* Nombre o imagen de usuario logueado en el caso de que lo este, de lo contrario un enlace para registrarse.
 
-4- Por último un botón de login - logout
+* Por último un botón de login - logout
 
 Como cuerpo de la página principal, el listado de los envíos creados por el usuario logueado y  los envíos que recibirá dicho usuario dependiendo del nodo que tenga asignado. Dentro del listado cada envío mostrará sus detalles de preparación y llevará a un enlace único de donde podrá ver el qr asociado al envío y un campo para imprimirlo.
 
 Por último un footer que contenga enlaces a diferentes páginas relacionadas con la empresa creados por el administrador, se mostrará a modo de icono/imagen.
 
-<h4>Boceto para movil</h4>
+## Boceto para movil
 
 ![Diseño movil](media/diseñoMOVIL.png)
 
