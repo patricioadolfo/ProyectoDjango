@@ -1,14 +1,6 @@
 <h1>PROYECTO DJANGO</h1>
 
-<h3>Descripcion del proyecto</h3>
-
-<h4>Boceto para movil</h4>
-
-![Diseño movil](media/diseñoMOVIL.png)
-
-<h4>Boceto para escritorio</h4>
-
-![Diseño para escritorio](media/diseñoDSK.png)
+⁣<h3>Descripción del proyecto</h3>
 
 El proyecto trata de un sitio de envíos y recepción de pedidos. Para que los usuarios carguen envíos desde un nodo al otro, los nodos son pre cargados por la empresa o el administrador, y cuenta con la posibilidad de que el usuario cree diferentes destinos para hacer sus envíos desde nodos a diferentes destinos o de diferentes destinos a los nodos de la empresa. 
 
@@ -22,5 +14,36 @@ El proyecto cuenta con un sector dedicado al servicio de impresión (esta parte 
 
 Contiene un sector para crear links relacionados con la empresa, estos serán alojados  dentro del footer.
 
-<h3>Base de Datos</h3>
+<h4>Boceto para escritorio</h4>
 
+![Diseño para escritorio](media/diseñoDSK.png)
+
+En la parte superior una barra de navegación que contiene de izquierda a derecha: 
+    
+    El nombre del proyecto.
+    
+    Los botones de navegación:
+
+        Home: lleva a la página principal del proyecto
+
+        Qr: Abre un lector de Qr, cada envío generará un qr el cual podrá ser leído por el lector.
+
+        Envíos: Dirige a un listado de envíos ordenados cronológicamente.
+
+        Nodos: Dirige a un listado de Nodos disponibles para realizar los envíos, contiene el detalle de cada nodo (dirección, teléfono, etc.).
+
+        Destinos: Al igual que los Nodos nos da un listado de los destinos disponibles, y un formulario para crear nuevos destinos.
+
+    Nombre o imagen de usuario logueado en el caso de que lo este, de lo contrario un enlace para registrarse.
+
+    Por último un botón de login - logout
+
+Como cuerpo de la página principal, el listado de los envíos creados por el usuario logueado y  los envíos que recibirá dicho usuario dependiendo del nodo que tenga asignado. Dentro del listado cada envío mostrará sus detalles de preparación y llevará a un enlace único de donde podrá ver el qr asociado al envío y un campo para imprimirlo.
+
+Por último un footer que contenga enlaces a diferentes páginas relacionadas con la empresa creados por el administrador, se mostrará a modo de icono/imagen.
+
+<h4>Boceto para movil</h4>
+
+![Diseño movil](media/diseñoMOVIL.png)
+
+Contiene los mismos ítems que el diseño de escritorio, con la diferencia de que los botones de la barra de navegación se agrupan dentro de un icono de menú.  
