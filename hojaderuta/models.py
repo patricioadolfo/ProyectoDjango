@@ -86,3 +86,4 @@ class SeguimientoDeEnvio(models.Model):
         String para representar el Objeto del Seguimiento de envio
         """
         return '%s' %(self.id)
+    

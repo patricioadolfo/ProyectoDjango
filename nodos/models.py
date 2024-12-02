@@ -8,11 +8,11 @@ class Nodo(models.Model):
     """
     nombre  = models.CharField(max_length=30)
     
-    calle = models.CharField(max_length=30, blank= True)
+    calle = models.CharField(max_length=30)
 
     numero = models.IntegerField(null= False)
 
-    localidad = models.CharField(max_length=30, blank= True)
+    localidad = models.CharField(max_length=30)
     
     NumTelefonoRegex = RegexValidator(regex=r"^\+?1?\d{8,15}$")
     
