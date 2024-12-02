@@ -20,23 +20,23 @@ Contiene un sector para crear links relacionados con la empresa, estos serán al
 
 En la parte superior una barra de navegación que contiene de izquierda a derecha: 
     
-    El nombre del proyecto.
-    
-    Los botones de navegación:
+1- El nombre del proyecto.
 
-        Home: lleva a la página principal del proyecto
+2- Los botones de navegación:
 
-        Qr: Abre un lector de Qr, cada envío generará un qr el cual podrá ser leído por el lector.
+2.1- Home: lleva a la página principal del proyecto
 
-        Envíos: Dirige a un listado de envíos ordenados cronológicamente.
+2.2- Qr: Abre un lector de Qr, cada envío generará un qr el cual podrá ser leído por el lector.
 
-        Nodos: Dirige a un listado de Nodos disponibles para realizar los envíos, contiene el detalle de cada nodo (dirección, teléfono, etc.).
+2.3- Envíos: Dirige a un listado de envíos ordenados cronológicamente.
 
-        Destinos: Al igual que los Nodos nos da un listado de los destinos disponibles, y un formulario para crear nuevos destinos.
+2.4- Nodos: Dirige a un listado de Nodos disponibles para realizar los envíos, contiene el detalle de cada nodo (dirección, teléfono, etc.).
 
-    Nombre o imagen de usuario logueado en el caso de que lo este, de lo contrario un enlace para registrarse.
+2.5- Destinos: Al igual que los Nodos nos da un listado de los destinos disponibles, y un formulario para crear nuevos destinos.
 
-    Por último un botón de login - logout
+3- Nombre o imagen de usuario logueado en el caso de que lo este, de lo contrario un enlace para registrarse.
+
+4- Por último un botón de login - logout
 
 Como cuerpo de la página principal, el listado de los envíos creados por el usuario logueado y  los envíos que recibirá dicho usuario dependiendo del nodo que tenga asignado. Dentro del listado cada envío mostrará sus detalles de preparación y llevará a un enlace único de donde podrá ver el qr asociado al envío y un campo para imprimirlo.
 
