@@ -40,27 +40,15 @@ class Envio(models.Model):
         String que representa al objeto envio
         """
         return '%s' %self.id
-
+    
     def envio_estado(self,):
 
-        if self.estado.nombre == 'PREPARADO':
+        if type(self.estado.color) != 'NoneType':
 
-            return format_html('<span style= "color: #00F44A;">{}</spam>', self.estado,)
-        
-        elif self.estado.nombre == 'EN CAMINO':
-
-            return format_html('<span style= "color: #F5E900;">{}</spam>', self.estado,)
-        
-        elif self.estado.nombre == 'ENTREGADO':
-
-            return format_html('<span style= "color: #0110F5;">{}</spam>', self.estado,)
-        
-        elif self.estado.nombre == 'IGNORADO':
-
-            return format_html('<span style= "color: #F50101;">{}</spam>', self.estado,)           
+            return format_html ('<span style= "color: {};">{} - {}</span>', self.estado.color, self.id, self.estado)       
 
         else:
-            return self.estado
+            return format_html ('<span>{} - {}</span>', self.id, self.estado) 
 
 class SeguimientoDeEnvio(models.Model):
     """

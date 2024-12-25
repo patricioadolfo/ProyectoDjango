@@ -1,17 +1,66 @@
-{% extends "base.html" %}
+{% extends "layout.html" %}
+
+{% load static %}
 
 {% block content %}
 
-    {% if user.is_authenticated %}
-
-        <p>Bienvenido {{ user.get_username }} a <em>Hoja de Ruta</em>, dentro de este sitio crearás, recibirás y verás el estado de tus envíos.</p>
-
-        <h3>{{ nombre }}</h3>
+<div class="container">
+    <div class="row">               
+        {% if user.is_authenticated %}
+            <h4>Hola {{ user.get_username }}!</h4>
+            {% if nodos %}
+                <p>Estas habilitado para realizar envíos y recepcionarlos en el nodo:
+                
+                    {% for nodo in nodos %}
+                        <code>{{ nodo.nodo }} </code>.
+                    {% endfor %}
+                
+                </p>                
+            {% else %}
+                <p>No tienes un nodo asignado aún. Comunicate con el administrador para que te proporcione uno.</p>
+            {% endif %}
         
-    {% else %}
+        {% else %} 
+            {% include "login-register.html" %}
+        {% endif %}
+    </div>
+</div>
 
-        <p> Inicie sesion o registrese para poder acceder al sitio</p>
-
-    {% endif %}  
+<div class="container">
+    <div class="row">
+        {% if user.is_authenticated %}
+        <div class="col-xl-4 col-md-6 col-sm-12 col-xxl-3">
+            <div class="card">
+                <img src="{% static 'imagenes/envios.png' %}" class="card-img-top">
+                <div class="card-body">
+                    <h5 class="card-title">Mis Envíos</h5>
+                    <p class="card-text">Tienes {{ mis_envios }} envíos preparados, ingresa aqui para verlos y/o crear nuevos.</p>
+                    <a href="{% url 'mis_envios' %}" class="btn btn-primary">Ir a mis envíos</a>
+                </div>
+            </div>
+        </div>
+        <div class="col-xl-4 col-md-6 col-sm-12 col-xxl-3">
+            <div class="card">
+                <img src="{% static 'imagenes/recibir.png' %}" class="card-img-top">
+                <div class="card-body">
+                    <h5 class="card-title">Para Recibir</h5>
+                    <p class="card-text">Tienes {{ a_recibir }} envios a recibir, ingresa aqui para ver los detalles y/o recibirlos.</p>
+                    <a href="{% url 'para_recibir' %}" class="btn btn-primary">Recibir envíos</a>
+                </div>
+            </div>
+        </div>
+        <div class="col-xl-4 col-md-6 col-sm-12 col-xxl-3">
+            <div class="card">
+                <img src="{% static 'imagenes/destinos.png' %}" class="card-img-top">
+                <div class="card-body">
+                    <h5 class="card-title">Otros Destinos</h5>
+                    <p class="card-text">Crea o recibe envios a otros destinos diferentes de las sucursales.</p>
+                    <a href="#" class="btn btn-primary">Ver envíos</a>
+                </div>
+            </div>
+        </div>
+        {% endif %}
+    </div>
+</div>
 
 {% endblock %}

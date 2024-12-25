@@ -1,0 +1,75 @@
+{% extends "layout.html" %}
+
+{% load static %}
+
+{% block content %}
+
+              
+{% if user.is_authenticated %}
+    <div class="row"> 
+        <div class="col card-pos">
+            <h4>Estos son tus envíos {{ user.get_username }}!</h4>
+            <p>Selecciona el Id del envío para ver mas detalles.</p>
+            {% if preparados %}
+                <div class="table-responsive">
+                    <table class="table table-striped-columns table-sm">
+                        <thead>
+                            <tr>
+                            <th scope="col" style="background-color: #0e3788; color: white;">Id</th>
+                            <th scope="col" style="background-color: #0e3788; color: white;">Origen</th>
+                            <th scope="col" style="background-color: #0e3788; color: white;">Destino</th>
+                            <th scope="col" style="background-color: #0e3788; color: white;">Fecha</th>
+                            <th scope="col" style="background-color: #0e3788; color: white;">Hora</th>
+                            <th scope="col" style="background-color: #0e3788; color: white;">Estado</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        {% for envios in preparados %}
+                            {% for envio in envios %}
+                            <tr>                      
+                                <th style="color: rgb(94, 94, 94);" scope="row">{{ envio.id }}</th>
+                                <td style="color: rgb(94, 94, 94);">{{ envio.origen }}</td>
+                                <td style="color: rgb(94, 94, 94);">{{ envio.destino }}</td>
+                                <td style="color: rgb(94, 94, 94);">{{ envio.fecha }}</td>
+                                <td style="color: rgb(94, 94, 94);">{{ envio.hora }}</td>
+                                <td style="color: rgb(94, 94, 94);">{{ envio.estado }}</td>
+                            </tr>
+                            {% endfor %}
+                        {% endfor %}
+                        {% for envios in en_camino %}
+                            {% for envio in envios %}
+                            <tr>
+                                <th style="color: rgb(94, 94, 94);" scope="row">{{ envio.id }}</th>
+                                <td style="color: rgb(94, 94, 94);">{{ envio.origen }}</td>
+                                <td style="color: rgb(94, 94, 94);">{{ envio.destino }}</td>
+                                <td style="color: rgb(94, 94, 94);">{{ envio.fecha }}</td>
+                                <td style="color: rgb(94, 94, 94);">{{ envio.hora }}</td>
+                                <td style="color: rgb(94, 94, 94);">{{ envio.estado }}</td>
+                            </tr>
+                            {% endfor %}
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                </div>                
+                                
+            {% else %}
+                <p>No tienes pedidos PREPARADOS para enviar desde tus nodos asignados.</p>
+            {% endif %}
+
+            {% if en_camino %}
+                          
+            {% else %}
+                <p>No tienes pedidos EN CAMINO desde tus nodos asignados.</p>
+            {% endif %}
+        </div>
+    </div>
+    <div class="row"> 
+        <div class="col card-pos">
+            <h4>Nuevo Envío</h4>
+        </div>    
+    </div>
+{% else %}
+    {% include "login-register.html" %}
+{% endif %}
+
+{% endblock %}

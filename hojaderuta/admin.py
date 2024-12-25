@@ -12,9 +12,9 @@ class RouteAdmin(admin.ModelAdmin):
 
     ordering = ['-id',]
     
-    list_display = ('id', 'usuario', 'origen', 'otro_origen' , 'destino', 'otro_destino' , 'envio_estado',)
+    list_display = ('envio_estado', 'usuario', 'origen', 'otro_origen' , 'destino', 'otro_destino',)
 
-    search_fields = ('id',)
+    search_fields = ('envio_estado',)
 
     fieldsets = [
         

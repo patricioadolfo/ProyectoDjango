@@ -1,7 +1,7 @@
 from django.db import models
 from estados.models import Estado
-
-class Link(models.Model):
+from django.utils.html import format_html
+class Links(models.Model):
     """
     Links para agregar dendro de el footer.
     """
@@ -14,6 +14,20 @@ class Link(models.Model):
 
     estado = models.ForeignKey(Estado, on_delete= models.SET_NULL, null= True)
 
+    def estado_link(self,):
+
+        if type(self.estado.color) != 'NoneType':
+
+            return format_html ('<span style= "color: {};">{}</span>', self.estado.color, self.estado)       
+
+        else:
+            return self.estado
+
+    def ver_imagen(self,):
+
+        return format_html('<img src="/media/{}" width= "30" height= "30"/>', self.icono)
+
     def __str__(self):
         
         return str(self.nombre)
+    

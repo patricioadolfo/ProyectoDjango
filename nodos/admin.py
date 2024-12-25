@@ -18,11 +18,17 @@ class NodoAdmin(admin.ModelAdmin):
           
           ),
 
-         ('Datos Generales',
+        ('Datos Generales',
            
           {'fields': ['telefono', 'calle', 'numero', 'localidad',]}, 
           
-          )
+          ),
+        
+        ('Imagen maps',
+        
+          {'fields': ['mapa',]},
+        
+          ),
     
     ]
 
@@ -46,6 +52,11 @@ class DestinoAdmin(admin.ModelAdmin):
            
           {'fields': ['telefono', 'calle', 'numero', 'localidad',]}, 
           
-          )
-    
+          ),
+            
+        ('Imagen maps',
+        
+          {'fields': ['mapa',]},
+        
+          ),
     ]

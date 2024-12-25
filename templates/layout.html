@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+
+{% load static %}
+
+{% block layout %}
+
+<header>
+    {% include "header.html" %}
+</header>
+
+<div class= "content">
+    <div class="container" style="padding-top: 8px;">{% block content %}{% endblock  %}</div> 
+</div>
+
+<div class="container-fluid">
+    <footer class= "bg-dark" data-bs-theme="dark" style="padding: 10px;">
+        {% include "footer.html" %}
+    </footer>
+</div>
+
+
+{% endblock  %}

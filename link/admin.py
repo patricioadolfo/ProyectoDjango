@@ -1,10 +1,10 @@
 from django.contrib import admin
-from link.models import Link
+from link.models import Links
 
-@admin.register(Link)
+@admin.register(Links)
 class LinkAdmin(admin.ModelAdmin):
 
-    list_display= ('nombre', 'url', 'estado',)
+    list_display= ('nombre', 'url', 'ver_imagen','estado_link',)
 
     search_fields = ('nombre',)
 

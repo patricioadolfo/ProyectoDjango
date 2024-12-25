@@ -18,6 +18,8 @@ class Nodo(models.Model):
     
     telefono = models.CharField(validators=[NumTelefonoRegex], max_length=16, unique=True)
 
+    mapa = models.ImageField(upload_to="mapa/%Y/%m/%d", blank=True, null=True)
+
     estado = models.ForeignKey(Estado, on_delete= models.SET_NULL, null= True)
 
     def direccion(self,):
@@ -26,6 +28,7 @@ class Nodo(models.Model):
         """
 
         return self.calle, self.numero, self.localidad
+
 
     def __str__(self):
 
@@ -47,6 +50,8 @@ class Destino(models.Model):
     NumTelefonoRegex = RegexValidator(regex=r"^\+?1?\d{8,15}$")
     
     telefono = models.CharField(validators=[NumTelefonoRegex], max_length=16, unique=True)
+
+    mapa = models.ImageField(upload_to="mapa/%Y/%m/%d", blank=True, null=True)
 
     estado = models.ForeignKey(Estado, on_delete= models.SET_NULL, null= True)
 
