@@ -1,2 +1,28 @@
-<h3>Bienvenido a <em>Hoja de Ruta</em></h3>
-<p>Dentro de este sitio podrás crear, recibir, ver el estado de tus envíos y los envíos a recepcionar. Inicie sesión o registrese para poder continuar.</p>            
+{% load static %}
+
+<div class="container">
+    <div class="row">
+        
+        <div class="col-sm-12 col-md-6 col-xl-6 col-xxl-6 image-center">
+            <img src="{% static 'imagenes/misenvios.png' %}" width="300" height="300px">
+        </div>
+        
+        <div class="col-sm-12 col-md-6 col-xl-6 col-xxl-6 text-padding-top">
+            
+            <p class="p-color">Dentro de este sitio podrás:
+                
+                <li class="p-color">Crear envíos desde tus nodos asignados y ver su estado actual.</li>
+                <li class="p-color">Consultar nodos disponibles</li>
+                <li class="p-color">Ver envíos que otros usuarios tienen para ti y recibirlos.</li>
+                <li class="p-color">Crear nuevos destinos para tus envíos.</li>
+            </p>
+            
+            <p class="p-color-gris">
+                Si ya tienes un usuario inicia sesión, recuerda que debes tener un nodo
+                asignado a tu usuario. De no tenerlo solicita al administrador que te proporcione él 
+                correspondiente. De lo contrario, regístrate y contacta al administrador.  
+            </p>
+            
+        </div>
+    </div>    
+</div>

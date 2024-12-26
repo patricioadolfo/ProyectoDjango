@@ -4,5 +4,13 @@
 {% block title %}{% trans "Logged out" %}{% endblock %}
 
 {% block content %}
-<p>{% trans "Successfully logged out" %}.</p>
+
+<div class="container">
+    <div class="row image-center">
+        <p class="p-color ">{% trans "Successfully logged out" %}.</p>
+    </div>
+</div>
+
+{% include 'login-register.html' %}
+
 {% endblock %}
