@@ -12,6 +12,8 @@ preparado = Estado.objects.get(nombre = 'PREPARADO')
 
 en_camino = Estado.objects.get(nombre = 'EN CAMINO')
 
+entregado = Estado.objects.get(nombre = 'ENTREGADO')
+
 params= {}
 
 params['links'] = Links.objects.filter(estado = activo)
@@ -62,9 +64,9 @@ def mis_envios(request):
 
         for nodo in params['nodos']:
             
-            params['preparados'].append(Envio.objects.filter(origen = nodo.nodo.id).filter(estado = preparado))
+            params['preparados'].append(Envio.objects.filter(origen = nodo.nodo.id).filter(estado = preparado).exclude( origen = None ))
 
-            params['en_camino'].append(Envio.objects.filter(estado = en_camino).filter(origen = nodo.nodo.id))       
+            params['en_camino'].append(Envio.objects.filter(estado = en_camino).filter(origen = nodo.nodo.id).exclude( origen = None ))       
 
     return render(request, 'hojaderuta/mis_envios.html', params )
 
@@ -80,10 +82,22 @@ def para_recibir(request):
 
         for nodo in params['nodos']:
             
-            params['preparados'].append(Envio.objects.filter(destino= nodo.nodo.id).filter(estado = preparado))
+            params['preparados'].append(Envio.objects.filter(destino= nodo.nodo.id).filter(estado = preparado).exclude( origen = None ))
 
-            params['en_camino'].append(Envio.objects.filter(estado= en_camino).filter(destino = nodo.nodo.id))       
+            params['en_camino'].append(Envio.objects.filter(estado= en_camino).filter(destino = nodo.nodo.id).exclude( origen = None ))       
 
     return render(request, 'hojaderuta/para_recibir.html', params )
 
+def otros_destinos(request):
 
+    params['otros_destinos'] = []
+
+    if request.user.is_authenticated:
+
+        params['nodos'] = Perfil.objects.filter( usuario= request.user)
+
+        for nodo in params['nodos']:
+            
+            params['otros_destinos'].append(Envio.objects.filter(origen = nodo.nodo.id).filter( destino = None ).exclude( estado = entregado ))   
+
+    return render(request, 'hojaderuta/otros_destinos.html', params )

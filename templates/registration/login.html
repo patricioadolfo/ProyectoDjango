@@ -9,22 +9,47 @@
 {% include 'titulo.html' %}
 
 <di class="container">
-    <div class="row">
-        <div class="col image-center">
+    <div class="row card-login">
+        <div class="col-sm-12 col-md-6 col-xl-6 padding-card">
             <form method="post" action="">
+
                 {% csrf_token %}
-                {{ form.as_p }}
-      
-                <input class="btn btn-primary" type="submit" value="{% trans 'Log in' %}" />
-                <input type="hidden" name="next" value="{{ next }}" />
+                    <div class="row">
+                        <div class="col">
+                            <label for="id_username" class="p-color1">{{ form.username.label_tag }}</label>
+                            <div>
+                                {{ form.username }} 
+                            </div>    
+                            <label for="id_password" class="p-color1">{{ form.password.label_tag }}</label>
+                            <div>
+                                {{ form.password  }}
+                            </div>    
+                        </div>
+                        <div class="col position-relative">
+                            <div class="position-absolute top-50 start-50 translate-middle">
+                                <input class="btn btn-primary" type="submit" value="{% trans 'Log in' %}" />
+                                <input type="hidden" name="next" value="{{ next }}" />
+                            </div>
+                        </div>
+                    </div> 
 
             </form>
         </div>
-        <div class="col">   
-            <p  >{% trans "Forgot your password?" %} <a href="{% url 'auth_password_reset' %}">{% trans "Reset it" %}</a>.</p>
-            <p>{% trans "Not a member?" %} <a href="{% url 'registration_register' %}">{% trans "Register" %}</a>.</p>
+        <div class="col-sm-12 col-md-6 col-xl-6 padding-card">  
+            <div class="text-center">
+                <p class="p-color1">{% trans "Forgot your password?" %} 
+                    <a class= "p-color-gris" href="{% url 'auth_password_reset' %}">{% trans "Reset it" %}</a>.
+                </p>
+                <p class="p-color1">{% trans "Not a member?" %} 
+                    <a  class= "p-color-gris" href= "{% url 'registration_register' %}">{% trans "Register" %}</a>.
+                </p>
+                <p class="p-color1">¿Eres administrador?
+                    <a  class= "p-color-gris" href= "{% url 'admin:index' %}">Inicia sesión</a>
+                </p>
+            </div> 
         </div> 
     </div>
+
 </di>
 
 {% include 'login-register.html' %}

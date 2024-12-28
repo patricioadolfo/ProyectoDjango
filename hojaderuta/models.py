@@ -15,13 +15,13 @@ class Envio(models.Model):
     
     usuario= models.ForeignKey(User, on_delete=models.SET_NULL, null= True)
     
-    origen = models.ForeignKey(Nodo, related_name='origen', on_delete=models.SET_NULL, null= True)
+    origen = models.ForeignKey(Nodo, related_name='origen', on_delete=models.SET_NULL, null= True, blank= True)
 
     otro_origen = models.ForeignKey(Destino, related_name='otro_origen', on_delete=models.SET_NULL, null= True, blank= True)
 
     estado = models.ForeignKey(Estado, on_delete=models.SET_NULL, null= True,)
    
-    destino = models.ForeignKey(Nodo, related_name= 'destino', on_delete=models.SET_NULL, null= True)
+    destino = models.ForeignKey(Nodo, related_name= 'destino', on_delete=models.SET_NULL, null= True, blank= True)
     
     otro_destino = models.ForeignKey(Destino, related_name='otro_destino',  on_delete= models.SET_NULL, null= True, blank= True)
     

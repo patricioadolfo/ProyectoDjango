@@ -141,7 +141,7 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 # Config django-registration-redux
 
-LOGIN_REDIRECT_URL = '/hojaderuta'
+LOGIN_REDIRECT_URL = '/'
 
 ACCOUNT_ACTIVATION_DAYS = 7 # One-week activation window; you may, of course, use a different value.
 
