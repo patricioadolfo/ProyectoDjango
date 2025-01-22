@@ -26,7 +26,7 @@ class NodoAdmin(admin.ModelAdmin):
         
         ('Imagen maps',
         
-          {'fields': ['mapa',]},
+          {'fields': ['maps',]},
         
           ),
     
@@ -56,7 +56,7 @@ class DestinoAdmin(admin.ModelAdmin):
             
         ('Imagen maps',
         
-          {'fields': ['mapa',]},
+          {'fields': ['maps',]},
         
           ),
     ]

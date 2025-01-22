@@ -20,3 +20,19 @@ class Perfil(models.Model):
     def __str__(self):
       
         return str(self.usuario)
+    
+    def enviar_notificación(self,):
+
+        print('Enviar notificacion a {}', self.usuario.email )
+    
+    def save(self, *args, **kwargs ):
+
+        self.enviar_notificación()
+
+        force_update = False
+
+        if self.id:
+
+            force_update = True
+
+        super( Perfil, self ).save(force_update = force_update)

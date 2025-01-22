@@ -1,30 +1,52 @@
 from django.shortcuts import render
-from link.models import Links 
-from estados.models import Estado
-from nodos.models import Nodo
-from nodos.models import Destino
-
+from django.views.generic import View
+from django.views.generic import FormView
+from farmacia.models import Parametros
+from nodos.forms import DestinoForm
 # Create your views here.
+class NodosDestinos(Parametros):
 
-activo = Estado.objects.get(nombre = 'ACTIVO')
+    def ver_nodos(self, request):
 
-params= {}
+        if request.user.is_authenticated:
 
-params['links'] = Links.objects.filter(estado = activo)
-# Create your views here.
+            self.obtener_nodos_destinos()
 
-def ver_nodos(request):
+        return render(request, 'nodos/nodos.html', self.params )
 
-    if request.user.is_authenticated:
+    def ver_destinos(self, request):
 
-        params['nodos'] = Nodo.objects.filter( estado = activo)
+        if request.user.is_authenticated:
 
-    return render(request, 'nodos/nodos.html', params )
+            self.obtener_nodos_destinos()
 
-def ver_destinos(request):
+        return render(request, 'nodos/destinos.html', self.params )
+    
 
-    if request.user.is_authenticated:
+nodos_destinos= NodosDestinos()
 
-        params['destinos'] = Destino.objects.filter( estado = activo)
 
-    return render(request, 'nodos/destinos.html', params )
+class CrearDestino(FormView):
+
+    template_name = 'nodos/crear_destino.html'
+
+    form_class = DestinoForm
+
+    success_url = 'destino_creado'
+
+    def form_valid(self, form):
+
+        form.save()
+
+        form.notificar()
+
+        return super().form_valid(form)
+    
+
+class DestinoCreado(View):
+
+    template = 'nodos/destino_creado.html'
+
+    def get(self, request):
+
+        return render(request, self.template, {'mensaje': 'Destino Creado'})

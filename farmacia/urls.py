@@ -29,6 +29,8 @@ urlpatterns = [
     
     path('accounts/', include('registration.backends.default.urls')),
 
+    path('captcha/', include( 'captcha.urls')),
+
 ]+ static(settings.MEDIA_URL, document_root = settings.MEDIA_ROOT)
 
 

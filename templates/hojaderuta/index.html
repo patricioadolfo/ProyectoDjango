@@ -8,10 +8,10 @@
     <div class="row">               
         {% if user.is_authenticated %}
             <h4 class="h3-color">Hola {{ user.get_username }}!</h4>
-            {% if nodos %}
+            {% if perfil %}
                 <p class="p-color-gris">Estas habilitado para realizar envíos y recepcionarlos en el nodo:
                 
-                    {% for nodo in nodos %}
+                    {% for nodo in perfil %}
                         <code>{{ nodo.nodo }} </code>.
                     {% endfor %}
                 

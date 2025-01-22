@@ -1,6 +1,7 @@
 from django.db import models
 from django.core.validators import RegexValidator
 from estados.models import Estado
+from django.utils.html import format_html
 
 class Nodo(models.Model):
     """
@@ -18,7 +19,7 @@ class Nodo(models.Model):
     
     telefono = models.CharField(validators=[NumTelefonoRegex], max_length=16, unique=True)
 
-    mapa = models.ImageField(upload_to="mapa/%Y/%m/%d", blank=True, null=True)
+    maps = models.TextField(max_length=1000, blank=True, null=True)
 
     estado = models.ForeignKey(Estado, on_delete= models.SET_NULL, null= True)
 
@@ -28,7 +29,13 @@ class Nodo(models.Model):
         """
 
         return self.calle, self.numero, self.localidad
+    
+    def ver_maps(self):
+        """
+        Retorna mapa de google-maps para sitio de usuario
+        """
 
+        return format_html ('<iframe src="{}" width="300" height="225" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>', self.maps)       
 
     def __str__(self):
 
@@ -51,7 +58,7 @@ class Destino(models.Model):
     
     telefono = models.CharField(validators=[NumTelefonoRegex], max_length=16, unique=True)
 
-    mapa = models.ImageField(upload_to="mapa/%Y/%m/%d", blank=True, null=True)
+    maps = models.TextField(max_length=1000, blank=True, null=True)
 
     estado = models.ForeignKey(Estado, on_delete= models.SET_NULL, null= True)
 
@@ -61,8 +68,15 @@ class Destino(models.Model):
         """
 
         return self.calle, self.numero, self.localidad
-     
+    
+    def ver_maps(self):
+        """
+        Retorna mapa de google-maps para sitio de usuario
+        """
+        
+        return format_html ('<iframe src="{}" width="300" height="225" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>', self.maps)       
 
+    
     def __str__(self):
 
         return self.nombre

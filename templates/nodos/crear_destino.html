@@ -1,0 +1,42 @@
+{% extends "layout.html" %}
+
+{% load static %}
+
+{% block content %}
+
+              
+{% if user.is_authenticated %}
+<div class="container">
+ 
+    <form action="" method="post">
+        
+        {% csrf_token %}
+        <div class="col">
+
+            {% for row in form %}
+            
+            <div class="row">
+                
+                <div class="col">
+                
+                    {{ row }}
+                
+                </div>
+            
+            </div>
+            
+            {% endfor %}
+
+            <button type="submit">Crear</button>
+
+        </div>
+
+    </form>
+
+</div>
+{% else %}
+    {% include 'titulo.html' %}
+    {% include "login-register.html" %}
+{% endif %}
+
+{% endblock %}

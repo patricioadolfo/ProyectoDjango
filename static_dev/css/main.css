@@ -12272,16 +12272,29 @@ a {
 }
 
 /* line 17, ../../../../../mnt/0AA4097CA4096B8F/Django/farmacia/static_dev/scss/_cards.scss */
+.card-pos2 {
+  padding: 6px;
+  margin: 6px;
+  border: 1px solid #889696;
+  border-radius: 1%;
+}
+
+/* line 24, ../../../../../mnt/0AA4097CA4096B8F/Django/farmacia/static_dev/scss/_cards.scss */
+.maps {
+  border: 1px solid #1548b7;
+}
+
+/* line 28, ../../../../../mnt/0AA4097CA4096B8F/Django/farmacia/static_dev/scss/_cards.scss */
 .card-title {
   color: #11388f;
 }
 
-/* line 21, ../../../../../mnt/0AA4097CA4096B8F/Django/farmacia/static_dev/scss/_cards.scss */
+/* line 32, ../../../../../mnt/0AA4097CA4096B8F/Django/farmacia/static_dev/scss/_cards.scss */
 .card-img-top {
   height: 180px;
 }
 
-/* line 25, ../../../../../mnt/0AA4097CA4096B8F/Django/farmacia/static_dev/scss/_cards.scss */
+/* line 36, ../../../../../mnt/0AA4097CA4096B8F/Django/farmacia/static_dev/scss/_cards.scss */
 #card {
   padding-top: 10px;
   padding-bottom: 10px;
@@ -12354,7 +12367,7 @@ footer {
 
 /* line 29, ../../../../../mnt/0AA4097CA4096B8F/Django/farmacia/static_dev/scss/_login-logout.scss */
 .card-login {
-  border: 1px solid #DF9B53;
+  border: 1px solid #889696;
   padding: 15px;
   margin: 5px;
 }

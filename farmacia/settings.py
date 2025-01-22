@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'captcha', # Django-simple-captcha
     # Mis apps 
     'nodos.apps.NodosConfig',
     'estados.apps.EstadosConfig',
