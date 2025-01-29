@@ -1,19 +1,61 @@
-<!-- Ventana Modal -->
-<div class="modal fade" id="ventanaModal" tabindex="-1" aria-labelledby="ventanaModal" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h1 class="modal-title fs-5" id="exampleModal1Label">Envío</h1>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                {% for x in envio %}
-                {{ x.descripcion }}
-                {% endfor %}
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
-            </div>
+{% extends "layout.html" %}
+
+{% load static %}
+
+{% load mi_templatetag %}
+
+{% block content %}
+
+<div class="container">
+    <div class="row">
+        <div class="col">
+            <p>Desde: {{ envio.origen }}</p>
+
+            <p>Hasta: {{ envio.destino }}</p>
+
+            <p>Creado el {{ envio.fecha }} a las {{ envio.hora }}</p>
+
+            <p>Descripcion: {{ envio.descripcion }}</p>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col">
+            <div class="table-responsive">
+                <table class="table table-striped-columns table-sm">
+                    <thead>
+                        <tr>
+                        <th scope="col" style="background-color: #0e3788; color: white;">Estado</th>
+                        <th scope="col" style="background-color: #0e3788; color: white;">Usuario</th>
+                        <th scope="col" style="background-color: #0e3788; color: white;">Fecha
+                        <th scope="col" style="background-color: #0e3788; color: white;">Hora</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for seguimiento in envio.seguimientodeenvio_set.all %}   
+                        <tr>                      
+                            <th style="color: rgb(94, 94, 94);" scope="row">{{seguimiento.estado}}</th>
+                            <td style="color: rgb(94, 94, 94);">{{seguimiento.usuario}}</td>
+                            <td style="color: rgb(94, 94, 94);">{{ seguimiento.fecha_de_modificacion }}</td>
+                            <td style="color: rgb(94, 94, 94);">{{ seguimiento.hora_de_modificacion }}</td>
+                        </tr> 
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>  
+
         </div>
     </div>
 </div>
+
+
+<div class="container">
+    <form method="post" action="">
+        
+        {% csrf_token %}
+                
+        {{ envio|cambio_estado:perfil }}
+
+    </form>
+</div>
+ 
+{% endblock %}

@@ -1,0 +1,36 @@
+<div class="table-responsive">
+    <table class="table table-striped-columns table-sm">
+        <thead>
+            <tr>
+                <th scope="col" style="background-color: #0e3788; color: white;">Nombre</th>
+                <th scope="col" style="background-color: #0e3788; color: white;">Dirección</th>
+                <th scope="col" style="background-color: #0e3788; color: white;">Localidad</th>
+                <th scope="col" style="background-color: #0e3788; color: white;">Telefono</th>
+                <th scope="col" style="background-color: #0e3788; color: white;">Maps</th>
+            </tr>
+        </thead>
+
+        <tbody>
+
+            {% for nodo in nodos %}
+ 
+               <tr>                      
+                    <th style="color: rgb(94, 94, 94);">{{ nodo.nombre }}</th>
+                    <td style="color: rgb(94, 94, 94);">{{ nodo.calle }} {{ nodo.numero }}</td>
+                    <td style="color: rgb(94, 94, 94);">{{ nodo.localidad }}</td>
+                    <td style="color: rgb(94, 94, 94);">{{ nodo.telefono }}</td>
+                    <td style="color: rgb(94, 94, 94);" scope="row">
+                        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#ventanaModal" data-info='{{ nodo.ver_maps }}'>
+                            Ver
+                        </button>
+                    </td>
+                </tr> 
+                {% empty %}
+                
+                    <p>No existen nodos</p>
+
+            {% endfor %}
+        </tbody>
+
+    </table>
+</div> 

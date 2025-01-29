@@ -1,0 +1,45 @@
+<form  class="px-4 py-3" action="{% url 'mis_envios' %}" method="post" action="">
+
+    {% csrf_token %}
+    
+    <div class="form-control">
+
+        {% csrf_token %}
+        
+        <label for="id_origen">Desde</label>   
+        <div>
+        <select name="origen" class="form-select" required id="id_origen">
+            {% if perfil %}
+                
+                {% for nodo in perfil %}
+    
+                <option value='{{ nodo.nodo.id }}'>{{ nodo.nodo.nombre }}</option>
+            
+                {% endfor %}
+            
+                {% endif %}
+          </select>
+        </div>
+    
+        <label for="id_destino">Para</label>   
+        <div>
+        <select name="destino" class="form-select" required id="id_destino">
+            {% if nodos %}
+                
+                {% for nodo in nodos %}
+    
+                <option value='{{ nodo.id }}'>{{ nodo }}</option>
+            
+                {% endfor %}
+            
+                {% endif %}
+          </select>
+        </div>
+    
+    <div class="form-control">
+        <label for="id_descripcion">Descripción</label>
+        <div>{{form.descripcion }}</div>
+    </div>
+    <input type="submit" value="OK" class="w-100 mb-2 btn btn-lg rounded-3 btn-primary" id="btn_ok">
+
+</form>

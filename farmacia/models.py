@@ -34,6 +34,8 @@ class Parametros():
 
         self.entregado = self.estado.get(nombre = 'ENTREGADO')
 
+        self.ignorado = self.estado.get(nombre = 'IGNORADO')
+
     def obtener_links(self,):
 
         self.params['links'] = self.link.filter(estado = self.activo)
@@ -42,8 +44,6 @@ class Parametros():
 
         self.params['perfil'] = self.perfil.filter( usuario= request.user)
 
-    def obtener_nodos_destinos(self):
+    def obtener_nodos_destinos(self, nodo):
 
-        self.params['nodos'] = Nodo.objects.filter( estado = self.activo)
-
-        self.params['destinos'] = Destino.objects.filter( estado = self.activo)
+        self.params['nodos'] = nodo.filter( estado = self.activo)

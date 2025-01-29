@@ -6,7 +6,6 @@ from django.utils.html import format_html
 from datetime import datetime
 import time
 
-
 class Envio(models.Model):
 
     """
@@ -43,7 +42,11 @@ class Envio(models.Model):
     
     def envio_estado(self,):
 
-        if type(self.estado.color) != 'NoneType':
+        if self.estado == None:
+
+            return format_html ('<span> None </span>') 
+
+        elif type(self.estado.color) != 'NoneType':
 
             return format_html ('<span style= "color: {};">{} - {}</span>', self.estado.color, self.id, self.estado)       
 

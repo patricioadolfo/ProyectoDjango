@@ -10,7 +10,7 @@ class NodosDestinos(Parametros):
 
         if request.user.is_authenticated:
 
-            self.obtener_nodos_destinos()
+            self.obtener_nodos_destinos(self.nodos)
 
         return render(request, 'nodos/nodos.html', self.params )
 
@@ -18,9 +18,9 @@ class NodosDestinos(Parametros):
 
         if request.user.is_authenticated:
 
-            self.obtener_nodos_destinos()
+            self.obtener_nodos_destinos(self.destinos)
 
-        return render(request, 'nodos/destinos.html', self.params )
+        return render(request, 'nodos/nodos.html', self.params )
     
 
 nodos_destinos= NodosDestinos()

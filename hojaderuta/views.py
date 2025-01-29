@@ -1,7 +1,10 @@
 from django.shortcuts import render
 from django.shortcuts import redirect
+from django.http import Http404
 from farmacia.models import Parametros
-from hojaderuta.forms import EnvioForm
+from hojaderuta.models import Envio
+from hojaderuta.forms import EnvioForm, EnvioOtroDestinoForm
+
 
 class Usuario(Parametros):    
     
@@ -42,23 +45,24 @@ class Usuario(Parametros):
             form = EnvioForm(request.POST)  
 
             if form.is_valid():
+
+                origen = form.cleaned_data['origen']
+
+                destino = form.cleaned_data['destino']
+
+                descripcion = form.cleaned_data['descripcion']
+
+                nuevo_envio = Envio( origen = origen, destino = destino, descripcion = descripcion, usuario = request.user, estado = self.preparado )
                 
-                post = form.save(commit=False)
-
-                post.user= request.user
-
-                post.save()
+                nuevo_envio.save()
                 
                 return redirect('mis_envios')   
-            
-            else: 
-                print('sdfds')
 
         if request.user.is_authenticated:
 
             self.obtener_nodos(request)
 
-            self.obtener_nodos_destinos()
+            self.obtener_nodos_destinos(self.nodos)
 
             self.params['form'] = EnvioForm()
 
@@ -68,7 +72,7 @@ class Usuario(Parametros):
 
                 self.params['en_camino'].append(self.envio.filter(estado = self.en_camino).filter(origen = nodo.nodo.id).exclude( origen = None ).exclude( destino = None ))       
 
-        return render(request, 'hojaderuta/mis_envios.html', self.params )
+        return render(request, 'hojaderuta/envios.html', self.params )
 
     def para_recibir(self, request):
 
@@ -80,9 +84,9 @@ class Usuario(Parametros):
 
             self.obtener_nodos(request)
 
-            for nodo in self.params['nodos']:
+            for nodo in self.params['perfil']:
                 
-                self.params['preparados'].append(self.envio.filter(destino= nodo.nodo.id).filter(estado = self.preparado).exclude( origen = None ))
+                self.params['preparados'].append(self.envio.filter( destino = nodo.nodo.id ).filter( estado = self.preparado ).exclude( origen = None ))
 
                 self.params['en_camino'].append(self.envio.filter(estado= self.en_camino).filter(destino = nodo.nodo.id).exclude( origen = None ))       
 
@@ -90,16 +94,62 @@ class Usuario(Parametros):
 
     def otros_destinos(self, request):
 
-        self.params['otros_destinos'] = []
+        self.params['preparados'] = []
+
+        self.params['en_camino'] = []
 
         if request.user.is_authenticated:
 
+            if request.method == "POST":       
+        
+                form = EnvioOtroDestinoForm(request.POST)  
+
+                if form.is_valid():
+
+                    origen = form.cleaned_data['origen']
+
+                    otro_destino = form.cleaned_data['otro_destino']
+
+                    descripcion = form.cleaned_data['descripcion']
+
+                    nuevo_envio = Envio( origen = origen, otro_destino = otro_destino, descripcion = descripcion, usuario = request.user, estado = self.preparado )
+                    
+                    nuevo_envio.save()
+                    
+                    return redirect('otros_destinos')  
+
             self.obtener_nodos(request)
 
-            for nodo in self.params['nodos']:
+            self.obtener_nodos_destinos(self.destinos)
+
+            for nodo in self.params['perfil']:
                 
-                self.params['otros_destinos'].append(self.envio.filter(origen = nodo.nodo.id).filter( destino = None ).exclude( estado = self.entregado ))   
+                self.params['preparados'].append(self.envio.filter(origen = nodo.nodo.id).filter( destino = None ).exclude( estado = self.entregado ))   
 
         return render(request, 'hojaderuta/otros_destinos.html', self.params )
 
+    def ver_envio(self, request, envio_id): 
+
+        try:
+            self.obtener_nodos(request)
+
+            envio = self.envio.get(id = envio_id)
+            
+            if request.method == "POST":
+
+                estado = request.POST.get("estado")
+
+                envio.estado = self.estado.get( id= estado )
+
+                envio.save()
+
+            self.params['envio'] = envio
+
+            return render( request, 'hojaderuta/detalle_envio.html', self.params )
+
+        except:
+
+            raise Http404
+
 usuario = Usuario() 
+
