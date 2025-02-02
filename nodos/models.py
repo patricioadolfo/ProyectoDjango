@@ -35,7 +35,9 @@ class Nodo(models.Model):
         Retorna mapa de google-maps para sitio de usuario
         """
 
-        return format_html ('<iframe src="{}" width="300" height="225" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>', self.maps)       
+        return format_html ('<iframe class="responsive-iframe" src="{}" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>', self.maps)       
+
+    #width="300" height="225" 
 
     def __str__(self):
 
