@@ -1,8 +1,8 @@
-```diff
--# PROYECTO DJANGO
 
--## Descripción del proyecto
-```
+# ![#f03c15]PROYECTO DJANGO
+
+## ![#f03c15]Descripción del proyecto
+
 El proyecto consiste en un sitio para envíos desde una sucursal (nodo) a otra dentro de una cadena de farmacias. Con la posibilidad de crear nuevos destinos diferentes a las sucursales en caso de ser necesario. 
 
 Dentro de cada envío se detalla el usuario de creación, fecha, hora, estado y la descripción. Cada envío tiene un seguimiento; este detalla también al usuario que lo modificó y su nuevo estado con fecha y hora. El fin de este seguimiento es para tener un control de cada envío para saber su estado actual y si llegó a su destino correcto.
