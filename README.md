@@ -19,7 +19,75 @@ Actualmente, los envíos cuentan con 4 estados:
 Los estados no solo sirven para envíos, sino que también para habilitar/deshabilitar nodos/destinos por el usuario administrador. La función de crear nuevos estados es para definir situaciones que se presenten a futuro con respecto a envíos, nodos, links de accesos. Uno de los objetivos principales de los estados es no eliminar información dentro de la base de datos, sino actualizar su situación.
 ### Login y perfil del usuario
 
-El proyecto actualmente cuenta con "registration-redux" para la creación de usuarios y una sección de perfil para que el usuario complete indicando a la o las sucursales a las que pertenece. Vale mencionar que un usuario puede pertenecer solo a una sucursal o a varias, lo que le da acceso a enviar desde todos sus nodos y recibir envíos con destinos a esos nodos. En producción, la sección de perfil solo va a ser administrada por un usuario con privilegios. Este mismo será quien defina la o las sucursales en las que pueden operar los usuarios.   
+El proyecto actualmente cuenta con "registration-redux" para la creación de usuarios y una sección de perfil para que el usuario complete indicando a la o las sucursales a las que pertenece. Vale mencionar que un usuario puede pertenecer solo a una sucursal o a varias, lo que le da acceso a enviar desde todos sus nodos y recibir envíos con destinos a esos nodos. En producción, la sección de perfil solo va a ser administrada por un usuario con privilegios. Este mismo será quien defina la o las sucursales en las que pueden operar los usuarios.  
+
+### Parametros
+
+Para facilitar el acceso a datos frecuentes se creo una clase llamada **Parametros** dentro de farmacia/models.py. Esta contiene metodos utilizados frecuentemente para las vistas.
+
+```python
+from link.models import Links 
+from perfiles.models import Perfil
+from hojaderuta.models import Envio
+from estados.models import Estado
+from nodos.models import Nodo
+from nodos.models import Destino
+
+class Parametros():
+    """
+    Clase para obterner los objetos mas utilzados por el usuario
+    """
+
+    def __init__(self,):
+
+        self.params = {}
+
+        self.link = Links.objects
+
+        self.envio = Envio.objects
+
+        self.estado = Estado.objects
+
+        self.perfil = Perfil.objects
+
+        self.nodos = Nodo.objects
+
+        self.destinos = Destino.objects
+
+        self.activo = self.estado.get(nombre = 'ACTIVO')
+
+        self.preparado = self.estado.get(nombre = 'PREPARADO')
+
+        self.en_camino = self.estado.get(nombre = 'EN CAMINO')
+
+        self.entregado = self.estado.get(nombre = 'ENTREGADO')
+
+        self.ignorado = self.estado.get(nombre = 'IGNORADO')
+
+    def obtener_links(self,):
+
+        self.params['links'] = self.link.filter(estado = self.activo)
+
+    def obtener_nodos(self, request):
+
+        try:
+
+            perfil = self.perfil.get( usuario = request.user)
+
+            self.params['perfil'] = perfil
+
+            self.params['nodos_perfil'] = perfil.nodos.all()
+
+        except:
+
+            self.params['perfil'] = []
+
+            self.params['nodos_perfil'] = []
+
+    def obtener_nodos_destinos(self, nodo):
+
+        self.params['nodos'] = nodo.filter( estado = self.activo)
+```
 
 ## Sitio 
 ### Página Principal
@@ -288,4 +356,43 @@ Este templatetag se utiliza en el template hojaderuta/detalle_envio.html
     <input type="submit" value="OK" class="btn btn-primary btn-sm" id="btn_ok">
 
 </form>
+```
+### Signals
+
+Se implemento con el fin de crear el seguimiento de cualquier envio, cuando el usuario realiza alguna modificacion con respecto al estado del envio. La funcion *crear_seguimiento* toma los datos de dicho envio y detalla el cambio que lo afecto.
+
+```python
+from django.db.models.signals import post_save
+from django.dispatch import receiver
+from hojaderuta.models import Envio, SeguimientoDeEnvio
+from farmacia.models import Parametros
+
+parametro = Parametros()
+
+@receiver( post_save, sender = Envio )
+def crear_seguimiento( sender, instance, created, **kwargs):
+
+    if created == True:
+
+        SeguimientoDeEnvio.objects.create( 
+            
+            usuario = instance.usuario, 
+            
+            envio = instance, 
+            
+            estado =  parametro.preparado
+            
+            )
+
+    elif created == False:
+
+        SeguimientoDeEnvio.objects.create( 
+            
+            usuario = instance.usuario, 
+            
+            envio = instance, 
+            
+            estado =  instance.estado
+            
+            )
 ```
