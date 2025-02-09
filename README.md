@@ -1,6 +1,5 @@
 
-# ![#f03c15]PROYECTO DJANGO
-
+# $${\color{red}PROYECTO DJANGO}$$
 ## ![#f03c15]Descripción del proyecto
 
 El proyecto consiste en un sitio para envíos desde una sucursal (nodo) a otra dentro de una cadena de farmacias. Con la posibilidad de crear nuevos destinos diferentes a las sucursales en caso de ser necesario. 
