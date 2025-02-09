@@ -46,7 +46,8 @@ Dentro del sitio se puede ver el footer, el cual contiene links de acceso a pág
 
 ## Base de datos
 
-Actualmente, la base de datos es la que Django ofrece por defecto (SQLite). En producción está planeado utilizar PostgreSQL, ya que es la base de datos con la que tengo más afinidad. 
+> [!NOTE]
+> Actualmente, la base de datos es la que Django ofrece por defecto (SQLite). En producción está planeado utilizar PostgreSQL, ya que es la base de datos con la que tengo más afinidad. 
 
 A continuación se detallan las tablas y su relación.
 
