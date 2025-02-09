@@ -42,7 +42,19 @@ class Parametros():
 
     def obtener_nodos(self, request):
 
-        self.params['perfil'] = self.perfil.filter( usuario= request.user)
+        try:
+
+            perfil = self.perfil.get( usuario = request.user)
+
+            self.params['perfil'] = perfil
+
+            self.params['nodos_perfil'] = perfil.nodos.all()
+
+        except:
+
+            self.params['perfil'] = []
+
+            self.params['nodos_perfil'] = []
 
     def obtener_nodos_destinos(self, nodo):
 

@@ -12253,6 +12253,32 @@ a {
   font-size: 10px;
 }
 
+/* line 16, ../../../../mnt/0AA4097CA4096B8F/Django/farmacia/static_dev/scss/_body.scss */
+h3, .h3 {
+  color: #11388f;
+  border-color: #5f7470;
+  text-align: center;
+}
+
+/* line 22, ../../../../mnt/0AA4097CA4096B8F/Django/farmacia/static_dev/scss/_body.scss */
+h4, .h4 {
+  color: #BE7323;
+  border-color: #5f7470;
+  text-align: center;
+}
+
+/* line 28, ../../../../mnt/0AA4097CA4096B8F/Django/farmacia/static_dev/scss/_body.scss */
+p {
+  color: #5f7470;
+}
+
+/* line 32, ../../../../mnt/0AA4097CA4096B8F/Django/farmacia/static_dev/scss/_body.scss */
+.centrado {
+  justify-content: center;
+  align-items: center;
+  display: flex;
+}
+
 /* line 1, ../../../../mnt/0AA4097CA4096B8F/Django/farmacia/static_dev/scss/_cards.scss */
 .card {
   width: 18rem;

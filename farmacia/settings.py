@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'captcha', # Django-simple-captcha
+    'qr_code', # Django-qr-code
     # Mis apps 
     'nodos.apps.NodosConfig',
     'estados.apps.EstadosConfig',

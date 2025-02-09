@@ -6,26 +6,35 @@ from impresoras.models import ImpresoraNodo
 
 class Perfil(models.Model):
     """
-    Indica a que nodo pertenece el usuario, si es repartidor, y que impresora tienen asignada
+    Indica a que nodos pertenece el usuario, si es repartidor o no, y que 
+    impresora tienen asignada
     """
     
-    usuario = models.ForeignKey(User, on_delete= models.CASCADE, null= True,)
+    usuario = models.OneToOneField(User, on_delete= models.CASCADE, null= True,)
 
-    nodo =  models.ForeignKey(Nodo, on_delete= models.CASCADE, null= True, blank= True)
+    nodos =  models.ManyToManyField(Nodo, related_name="nodos")
 
     reparto = models.BooleanField(default= False)
 
     impresora = models.ForeignKey(ImpresoraNodo, on_delete= models.CASCADE, null= True, blank= True)
 
     def __str__(self):
-      
+        """
+        Retorna nombre de usuario.
+        """   
         return str(self.usuario)
     
     def enviar_notificación(self,):
+        """
+        Logica para enviar email de notificación.
+        """
 
         print('Enviar notificacion a {}', self.usuario.email )
     
     def save(self, *args, **kwargs ):
+        """
+        Logica para ejecutar accion al momento de guardar información.
+        """
 
         self.enviar_notificación()
 

@@ -4,7 +4,7 @@ from perfiles.models import Perfil
 @admin.register(Perfil)
 class EstadosAdmin(admin.ModelAdmin):
 
-    list_display= ('usuario', 'nodo', 'impresora', 'reparto')
+    list_display= ('usuario', 'impresora', 'reparto')
 
     search_fields = ('usuario',)
 

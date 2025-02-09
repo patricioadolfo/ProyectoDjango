@@ -3,12 +3,34 @@ html {
     position: relative;
   }
   
-  body {
+body {
     margin: 0;
     margin-bottom: 80px;
     background-color: $gris-back;
   } 
 
-  a {
+a {
     font-size: 10px;
+  }
+
+h3 {
+    color: $azul-base;
+    border-color: $gris4;
+    text-align: center;
+  }
+
+h4 {
+    color: $naranja-base2;
+    border-color: $gris4;
+    text-align: center;
+  }
+
+p {
+  color: $gris4;
+}
+
+.centrado {
+  justify-content: center; 
+  align-items: center;
+  display: flex;
   }

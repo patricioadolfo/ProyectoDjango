@@ -4,30 +4,50 @@
 
 {% load mi_templatetag %}
 
+{% load qr_code %}
+
+
 {% block content %}
 
 <div class="container">
+    <br>
     <div class="row">
-        <div class="col">
-            <p>Desde: {{ envio.origen }}</p>
+        <div class="col-xl-4 col-md-4 col-sm-12 col-xxl-4">
 
-            <p>Hasta: {{ envio.destino }}</p>
+            <div class="row">
+                <h4>
+                    <b>Detalle del envío</b>
+                </h4>
+                <br>
+                <p>
+                    Desde {{ envio.origen }} hasta {{ envio|ver_destino }}. Creado el {{ envio.fecha }} a 
+                    las {{ envio.hora }} por {{ envio.usuario }}.
+                </p>
+    
+                <p>Descripcion: {{ envio.descripcion }}</p>
+            </div>
+            
+            <div class="row">
+                <h4>
+                    <b>Qr</b>
+                </h4>
+                {% qr_from_data envio.id size="m" %}
+            </div>
 
-            <p>Creado el {{ envio.fecha }} a las {{ envio.hora }}</p>
-
-            <p>Descripcion: {{ envio.descripcion }}</p>
         </div>
-    </div>
-    <div class="row">
-        <div class="col">
+
+        <div class="col-xl-8 col-md-8 col-sm-12 col-xxl-8">
+            <h4>
+                <b>Seguimiento del envío</b>
+            </h4>        
             <div class="table-responsive">
                 <table class="table table-striped-columns table-sm">
-                    <thead>
+                    <thead class="table-dark">
                         <tr>
-                        <th scope="col" style="background-color: #0e3788; color: white;">Estado</th>
-                        <th scope="col" style="background-color: #0e3788; color: white;">Usuario</th>
-                        <th scope="col" style="background-color: #0e3788; color: white;">Fecha
-                        <th scope="col" style="background-color: #0e3788; color: white;">Hora</th>
+                        <th scope="col">Estado</th>
+                        <th scope="col">Usuario</th>
+                        <th scope="col">Fecha
+                        <th scope="col">Hora</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -42,20 +62,21 @@
                     </tbody>
                 </table>
             </div>  
-
-        </div>
-    </div>
-</div>
-
-
-<div class="container">
-    <form method="post" action="">
+            <h4>
+                <b>Cambiar de estado</b>
+            </h4> 
+            <form method="post" action="">
         
-        {% csrf_token %}
-                
-        {{ envio|cambio_estado:perfil }}
+                {% csrf_token %}
+                        
+                {{ envio|cambio_estado:nodos_perfil }}
 
-    </form>
+                <input type="submit" value="OK" class="btn btn-primary btn-sm" id="btn_ok">
+        
+            </form>
+        </div>  
+    </div>
+
 </div>
- 
+    
 {% endblock %}

@@ -5,21 +5,30 @@
 {% block content %}
 
 <div class="container">
+    <br>
     <div class="row">               
         {% if user.is_authenticated %}
-            <h4 class="h3-color">Hola {{ user.get_username }}!</h4>
-            {% if perfil %}
-                <p class="p-color-gris">Estas habilitado para realizar envíos y recepcionarlos en el nodo:
-                
-                    {% for nodo in perfil %}
-                        <code>{{ nodo.nodo }} </code>.
-                    {% endfor %}
-                
-                </p>                
+            <div class="col-xl-2 col-md-3 col-sm-12 col-xxl-3">
+                <h3>
+                    <b>Hola {{ user.get_username }}!</b>
+                </h3>
+            </div>
+            <div class="col-xl-10 col-md-9 col-sm-12 col-xxl-9">
+            {% if nodos_perfil %}
+                <p>Estas habilitado para realizar envíos y recepcionarlos en el nodo:
+                    {% for nodo in nodos_perfil %}
+                        <code>{{ nodo }} </code>.
+                    {% endfor %} 
+                    Para agregar o modificar tus nodos dirigete a la seccion de perfil.              
+                </p>             
             {% else %}
-                <p>No tienes un nodo asignado aún. Comunicate con el administrador para que te proporcione uno.</p>
+                <p>
+                    No tienes un nodo asignado aún. Comunicate con el administrador para que te 
+                    proporcione uno. O completa tu perfil desde este <a href="">link</a> para comenzar.
+                </p>
             {% endif %}
-        
+            </div>
+
         {% else %} 
             {% include 'titulo.html' %}
             {% include "login-register.html" %}
@@ -27,41 +36,23 @@
     </div>
 </div>
 
-<div class="container">
-    <div class="row">
-        {% if user.is_authenticated %}
-        <div class="col-xl-4 col-md-6 col-sm-12 col-xxl-3">
-            <div class="card">
-                <img src="{% static 'imagenes/envios.png' %}" class="card-img-top">
-                <div class="card-body">
-                    <h5 class="card-title">Mis Envíos</h5>
-                    <p class="card-text">Tienes {{ mis_envios }} envíos preparados, ingresa aqui para verlos y/o crear nuevos.</p>
-                    <a href="{% url 'mis_envios' %}" class="btn btn-primary">Ir a mis envíos</a>
-                </div>
-            </div>
-        </div>
-        <div class="col-xl-4 col-md-6 col-sm-12 col-xxl-3">
-            <div class="card">
-                <img src="{% static 'imagenes/recibir.png' %}" class="card-img-top">
-                <div class="card-body">
-                    <h5 class="card-title">Para Recibir</h5>
-                    <p class="card-text">Tienes {{ a_recibir }} envios a recibir, ingresa aqui para ver los detalles y/o recibirlos.</p>
-                    <a href="{% url 'para_recibir' %}" class="btn btn-primary">Recibir envíos</a>
-                </div>
-            </div>
-        </div>
-        <div class="col-xl-4 col-md-6 col-sm-12 col-xxl-3">
-            <div class="card">
-                <img src="{% static 'imagenes/destinos.png' %}" class="card-img-top">
-                <div class="card-body">
-                    <h5 class="card-title">Otros Destinos</h5>
-                    <p class="card-text">Crea o recibe envios a otros destinos diferentes de las sucursales.</p>
-                    <a href="{% url 'otros_destinos' %}" class="btn btn-primary">Ver envíos</a>
-                </div>
-            </div>
-        </div>
-        {% endif %}
+{% if user.is_authenticated %}
+
+    <div class="container">
+        <br>   
+        
+        {% include "hojaderuta/mis_envios.html" %} 
+
+        <br>
+
+        {% include "hojaderuta/para_recibir.html" %} 
+
+        <br>
+
+        {% include "hojaderuta/otros_destinos.html" %}
+
     </div>
-</div>
+
+{% endif %}
 
 {% endblock %}

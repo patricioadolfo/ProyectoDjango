@@ -11,26 +11,53 @@ class Usuario(Parametros):
     def index(self, request):
         """
         Retorna diccionario. Con los nodos asociados al perfil, la cuenta de los pedidos creados 
-        desde los nodos habilitados para el usuario, y la cuenta de los pedidos que recibiran lon nodos
-        asociados al usuario
+        desde los nodos habilitados para el usuario, y la cuenta de los pedidos que recibiran con nodos
+        asociados al usuario.
         """
         mis_envios = 0
 
         a_recibir = 0
 
+        otros_destinos = 0
+
+        self.params['preparados'] = []
+
+        self.params['en_camino'] = []
+
+        self.params['recibir_preparados'] = []
+
+        self.params['recibir_en_camino'] = []
+
+        self.params['otro_destino'] = []
+
         if request.user.is_authenticated:
 
             self.obtener_nodos(request)
 
-            for nodo in self.params['perfil']:
+            for nodo in self.params['nodos_perfil']:
                 
-                mis_envios+= self.envio.filter(origen= nodo.nodo.id).filter(estado= self.preparado).count() + self.envio.filter(estado= self.en_camino).filter(origen= nodo.nodo.id).count()
+                mis_envios+= self.envio.filter( origen = nodo.id ).filter( estado = self.preparado ).count() + self.envio.filter( estado = self.en_camino ).filter( origen = nodo.id ).count()
                   
-                a_recibir+= self.envio.filter(estado= self.preparado).filter(destino= nodo.nodo.id).count() + self.envio.filter(estado= self.en_camino).filter(destino= nodo.nodo.id).count()
+                a_recibir+= self.envio.filter( estado = self.preparado ).filter( destino = nodo.id ).count() + self.envio.filter( estado = self.en_camino ).filter( destino = nodo.id ).count()
+
+                otros_destinos+= self.envio.filter( origen = nodo.id ).filter( destino = None ).exclude( estado = self.entregado ).exclude( estado = self.ignorado ).count() 
+
+                self.params['preparados'].append( self.envio.filter( origen = nodo.id ).filter( estado = self.preparado ).exclude( origen = None ).exclude( destino = None ))
+
+                self.params['en_camino'].append( self.envio.filter( estado = self.en_camino ).filter( origen = nodo.id ).exclude( origen = None ).exclude( destino = None ))       
+
+                self.params['recibir_preparados'].append( self.envio.filter( destino = nodo.id ).filter( estado = self.preparado ).exclude( origen = None ))
+
+                self.params['recibir_en_camino'].append( self.envio.filter( estado = self.en_camino ).filter( destino = nodo.id ).exclude( origen = None ))       
+
+                self.params['otro_destino'].append( self.envio.filter( origen = nodo.id ).filter( destino = None ).exclude( estado = self.entregado ).exclude( estado = self.ignorado ))   
 
             self.params['mis_envios'] = mis_envios
 
             self.params['a_recibir'] = a_recibir
+
+            self.params['otros_destinos'] = otros_destinos
+
 
         return render(request, 'hojaderuta/index.html', self.params )
 
@@ -74,24 +101,6 @@ class Usuario(Parametros):
 
         return render(request, 'hojaderuta/envios.html', self.params )
 
-    def para_recibir(self, request):
-
-        self.params['preparados'] = []
-
-        self.params['en_camino'] = []
-
-        if request.user.is_authenticated:
-
-            self.obtener_nodos(request)
-
-            for nodo in self.params['perfil']:
-                
-                self.params['preparados'].append(self.envio.filter( destino = nodo.nodo.id ).filter( estado = self.preparado ).exclude( origen = None ))
-
-                self.params['en_camino'].append(self.envio.filter(estado= self.en_camino).filter(destino = nodo.nodo.id).exclude( origen = None ))       
-
-        return render(request, 'hojaderuta/para_recibir.html', self.params )
-
     def otros_destinos(self, request):
 
         self.params['preparados'] = []
@@ -130,7 +139,7 @@ class Usuario(Parametros):
 
     def ver_envio(self, request, envio_id): 
 
-        try:
+        #try:
             self.obtener_nodos(request)
 
             envio = self.envio.get(id = envio_id)
@@ -147,9 +156,9 @@ class Usuario(Parametros):
 
             return render( request, 'hojaderuta/detalle_envio.html', self.params )
 
-        except:
+        #except:
 
-            raise Http404
+         #   raise Http404
 
 usuario = Usuario() 
 

@@ -1,39 +1,78 @@
-{% extends "layout.html" %}
-
 {% load static %}
 
-{% block content %}
+{% load mi_templatetag %}
 
-{% if user.is_authenticated %}
-
-    <div class="container">
-
-        <div class="row"> 
-            <div class="col">
-                <h4>Estos son tus envíos {{ user.get_username }}!</h4>
-                <p>Selecciona el Id del envío para ver mas detalles.</p>
+<div class="row">
+    <div class="col-xl-3 col-md-3 col-sm-12 col-xxl-3">
+        <img src="{% static 'imagenes/destinos.png' %}" class="card-img-top">
+    </div>
+    <div class="col-xl-6 col-md-6 col-sm-12 col-xxl-9">
+        <div class="row">
+            <h4>
+                <b>Otros Destinos</b>
+            </h4>
+        </div>
+        <div class="row">
+        {% if otros_destinos != 0 %}
+            <p class="card-text">
+                Tienes {{ otros_destinos }} envíos preparados / en camino hacia otro destino. Para ver el
+                detalle selecciona su Id. O crea nuevos envios para otros destinos desde el siguiente enlace. 
+            </p>
+        {% else %}
+            <p class="card-text">
+                No tienes envíos preparados / en camino hacia otro destino. Para crear un envio selecciona 
+                el siguiente enlace.     
+            </p>
+        {% endif %}
+        </div>
+        <br>
+        <div class="row">
+            <a class="btn btn-primary btn-sm">Nuevo Envio</a>
+        </div>
+    </div>
+</div>
+<br>
+{% if otros_destinos != 0%}
+<div class="row">
+    <div class="col">           
+        <div class="table-responsive">
+            <table class="table table-striped-columns table-sm">
+                <thead class="table-dark">
+                    <tr>
+                    <th scope="col">ID</th>
+                    <th scope="col">Origen</th>
+                    <th scope="col">Destino</th>
+                    <th scope="col">Fecha</th>
+                    <th scope="col">Hora</th>
+                    <th scope="col">Estado</th>
+                    </tr>
+                </thead>
+                <tbody>
+                {% for envios in otro_destino %}
                     
-                {% include "hojaderuta/tabla_envios.html" %}                                
+                    {% for envio in envios %}
+        
+        
+                        <tr>                      
+                            <th style="color: rgb(94, 94, 94);" scope="row">
+                                <button type="button" class="btn btn-primary">
+                                    <a href="{% url 'ver_envio' envio.id %}">{{ envio.id }}</a>
+                                </button>
+                            </th>
+                            <td style="color: rgb(94, 94, 94);">{{ envio.origen }}</td>
+                            <td style="color: rgb(94, 94, 94);">{{ envio|ver_destino }}</td>
+                            <td style="color: rgb(94, 94, 94);">{{ envio.fecha }}</td>
+                            <td style="color: rgb(94, 94, 94);">{{ envio.hora }}</td>
+                            <td style="color: rgb(94, 94, 94);">{{ envio.estado }}</td>
+                        </tr> 
+        
+                    {% endfor %}
+                
+                {% endfor %}
 
-            </div>
-        </div>
-    </div>
-
-    <div class="container">
-        <div class="row"> 
-            <div class="col">
-                <h4>Nuevo Envío</h4>
-
-                {% include "hojaderuta/form_otro_destino.html" %} 
- 
-            </div>    
-        </div>
-    </div>
-
-
-
-{% else %}
-    {% include "login-register.html" %}
+                </tbody>
+            </table>
+        </div>            
+    </div>   
+</div>
 {% endif %}
-
-{% endblock %}

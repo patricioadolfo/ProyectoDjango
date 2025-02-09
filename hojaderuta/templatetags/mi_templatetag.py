@@ -21,13 +21,7 @@ def ver_destino(envio):
 @register.filter(name= 'cambio_estado')
 def cambio_estado(envio, perfil):
 
-    lista_nodos = []
-
-    for nodo in perfil:
-
-        lista_nodos.append(nodo.nodo)
-
-    if envio.origen in lista_nodos:
+    if envio.origen in perfil:
 
         if envio.estado == parametro.preparado:
 
@@ -37,14 +31,15 @@ def cambio_estado(envio, perfil):
                         <option value="{}">{}</option>
                     </select>
                     
-                    <input type="submit" value="OK" class="w-100 mb-2 btn btn-lg rounded-3 btn-primary" id="btn_ok">
+                    <input type="submit" value="OK" class="btn btn-primary btn-sm" id="btn_ok">
+                
                 """, parametro.ignorado.id, parametro.ignorado.nombre )
         
         else:
             
-            return format_html('<p>No hay cambios de estados</p>')
+            return format_html('<p>No hay cambios de estados disponibles</p>')
     
-    if envio.destino in lista_nodos:
+    if envio.destino in perfil:
 
         if envio.estado == parametro.en_camino:
 
@@ -54,12 +49,13 @@ def cambio_estado(envio, perfil):
                         <option value="{}">{}</option>
                     </select>
                     
-                    <input type="submit" value="OK" class="w-100 mb-2 btn btn-lg rounded-3 btn-primary" id="btn_ok">
+                    <input type="submit" value="OK" class="btn btn-primary btn-sm" id="btn_ok">
+                
                 """, parametro.entregado.id, parametro.entregado.nombre )
         else:
             
-            return format_html('<p>No hay cambios de estados</p>')
+            return format_html('<p>No hay cambios de estados disponibles</p>')
 
     else:
-        return format_html('<p>No hay cambios de estados</p>')
+        return format_html('<p>No hay cambios de estados disponibles</p>')
     
