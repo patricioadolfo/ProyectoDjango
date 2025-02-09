@@ -46,7 +46,7 @@ Dentro del sitio se puede ver el footer, el cual contiene links de acceso a pág
 
 ## Base de datos
 
-![Esquema de la base de datos](static_dev/db.jpg)
+![Esquema de la base de datos](static_dev/db_hojaderuta/db.jpg)
 
 A continuación se detallan las tablas y su relación.
 
@@ -100,5 +100,4 @@ A continuación se detallan las tablas y su relación.
 
 > [!NOTE]
 > Actualmente, la base de datos es la que Django ofrece por defecto (SQLite). En producción está planeado utilizar PostgreSQL, ya que es la base de datos con la que tengo más afinidad. 
-
 
