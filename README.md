@@ -182,42 +182,110 @@ def ver_destino(envio):
 De esta forma se utiliza dentro de el template pasandole como unico parametro "envio".
 
 ```html
-<div class="col">           
-    <div class="table-responsive">
-        <table class="table table-striped-columns table-sm">
-            <thead class="table-dark">
-                <tr>
-                <th scope="col">ID</th>
-                <th scope="col">Origen</th>
-                <th scope="col">Destino</th>
-                <th scope="col">Fecha</th>
-                <th scope="col">Hora</th>
-                <th scope="col">Estado</th>
-                </tr>
-            </thead>
-            <tbody>
-            {% for envios in otro_destino %}
-                
-                {% for envio in envios %}
+<table class="table table-striped-columns table-sm">
+    <thead class="table-dark">
+        <tr>
+        <th scope="col">ID</th>
+        <th scope="col">Origen</th>
+        <th scope="col">Destino</th>
+        <th scope="col">Fecha</th>
+        <th scope="col">Hora</th>
+        <th scope="col">Estado</th>
+        </tr>
+    </thead>
+    <tbody>
+    {% for envios in otro_destino %}
+        
+        {% for envio in envios %}
+
+        <tr>                      
+            <th style="color: rgb(94, 94, 94);" scope="row">
+                <button type="button" class="btn btn-primary">
+                    <a href="{% url 'ver_envio' envio.id %}">{{ envio.id }}</a>
+                </button>
+            </th>
+            <td style="color: rgb(94, 94, 94);">{{ envio.origen }}</td>
+            <td style="color: rgb(94, 94, 94);">{{ envio|ver_destino }}</td> <!--Templatetag-->
+            <td style="color: rgb(94, 94, 94);">{{ envio.fecha }}</td>
+            <td style="color: rgb(94, 94, 94);">{{ envio.hora }}</td>
+            <td style="color: rgb(94, 94, 94);">{{ envio.estado }}</td>
+        </tr>   
+
+        {% endfor %}
     
-                <tr>                      
-                    <th style="color: rgb(94, 94, 94);" scope="row">
-                        <button type="button" class="btn btn-primary">
-                            <a href="{% url 'ver_envio' envio.id %}">{{ envio.id }}</a>
-                        </button>
-                    </th>
-                    <td style="color: rgb(94, 94, 94);">{{ envio.origen }}</td>
-                    <td style="color: rgb(94, 94, 94);">{{ envio|ver_destino }}</td> <!--Templatetag-->
-                    <td style="color: rgb(94, 94, 94);">{{ envio.fecha }}</td>
-                    <td style="color: rgb(94, 94, 94);">{{ envio.hora }}</td>
-                    <td style="color: rgb(94, 94, 94);">{{ envio.estado }}</td>
-                </tr>   
+    {% endfor %}
 
-                {% endfor %}
+    </tbody>
+</table>
+
+```
+
+El segundo templatetag utilizado esta relacionado con formularios para hacer cambios de estado dentro de los envios, este toma dos parametros el envio y el perfil del usuario logueado, y retorna en formato html un select con la opcion que corresponda. Si el usuario no esta habilitado para modificar lo notificara.
+
+```python
+
+from django import template
+from farmacia.models import Parametros
+from django.utils.html import format_html
+
+parametro = Parametros()
+
+register = template.Library()
+        
+@register.filter(name= 'cambio_estado')
+def cambio_estado(envio, perfil):
+
+    if envio.origen in perfil:
+
+        if envio.estado == parametro.preparado:
+
+            return format_html(
+                """
+                    <select name="estado" class="form-select">
+                        <option value="{}">{}</option>
+                    </select>
+                    
+                    <input type="submit" value="OK" class="btn btn-primary btn-sm" id="btn_ok">
+                
+                """, parametro.ignorado.id, parametro.ignorado.nombre )
+        
+        else:
             
-            {% endfor %}
+            return format_html('<p>No hay cambios de estados disponibles</p>')
+    
+    if envio.destino in perfil:
 
-            </tbody>
-        </table>
-    </div> 
+        if envio.estado == parametro.en_camino:
+
+            return format_html( 
+                """
+                    <select name="estado" class="form-select">
+                        <option value="{}">{}</option>
+                    </select>
+                    
+                    <input type="submit" value="OK" class="btn btn-primary btn-sm" id="btn_ok">
+                
+                """, parametro.entregado.id, parametro.entregado.nombre )
+        else:
+            
+            return format_html('<p>No hay cambios de estados disponibles</p>')
+
+    else:
+        return format_html('<p>No hay cambios de estados disponibles</p>')
+```
+
+Este templatetag se utiliza en el template hojaderuta/detalle_envio.html
+```html
+<h4>
+    <b>Cambiar de estado</b>
+</h4> 
+<form method="post" action="">
+
+    {% csrf_token %}
+            
+    {{ envio|cambio_estado:nodos_perfil }}
+
+    <input type="submit" value="OK" class="btn btn-primary btn-sm" id="btn_ok">
+
+</form>
 ```
