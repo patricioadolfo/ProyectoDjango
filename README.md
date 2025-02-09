@@ -56,41 +56,41 @@ A continuación se detallan las tablas y su relación.
 
     - color: color opcional para identificarlo, ingresar código hexadecimal (str)
 
-* Tabla Nodo (decalara dentro de app nodos): Representa puntos de origen y destino dentro de un envio.
+* Tabla Nodo (declarada dentro de app Nodos): Representa puntos de origen y destino dentro de un envío.
 
-    -id: Identificador unnico. (int)
-
-    -nombre: Nombre de sucursal. (str)
-    
-    -calle: Direccion - calle. (str)
-
-    -numero: Direccion - numero. (int)
-
-    -localidad: Direccion - localidad (str)
-    
-    -telefono: No permite valores repetidos, cuenta con un validador de numeros. (str) 
-
-    -maps: Cadena de texto que representa la ubicacion dentro de Google Maps (str)
-
-    -estado: Clave foranea relacionada con tabla Estado.
-
-* Tabla Destino (decalara dentro de app nodos): Representa puntos de origen y destino dentro de un envio fuera de la organizacion.
-
-    -id: Identificador unnico. (int)
+    -id: Identificador único. (int)
 
     -nombre: Nombre de sucursal. (str)
     
-    -calle: Direccion - calle. (str)
+    -calle: Dirección - calle. (str)
 
-    -numero: Direccion - numero. (int)
+    -numero: Dirección - número. (int)
 
-    -localidad: Direccion - localidad (str)
+    -localidad: Dirección - localidad (str)
     
-    -telefono: No permite valores repetidos, cuenta con un validador de numeros. (str) 
+    -teléfono: No permite valores repetidos, cuenta con un validador de números. (str) 
 
-    -maps: Cadena de texto que representa la ubicacion dentro de Google Maps (str)
+    -maps: Cadena de texto que representa la ubicación dentro de Google Maps (str)
 
-    -estado: Clave foranea relacionada con tabla Estado.
+    -estado: Clave foránea relacionada con tabla Estado.
+
+* Tabla Destino (declarada dentro de app nodos): Representa puntos de origen y destino dentro de un envío fuera de la organización.
+
+    -id: Identificador único. (int)
+
+    -nombre: Nombre de sucursal. (str)
+    
+    -calle: Dirección - calle. (str)
+
+    -numero: Dirección - numero. (int)
+
+    -localidad: Dirección - localidad (str)
+    
+    -teléfono: No permite valores repetidos, cuenta con un validador de números. (str) 
+
+    -maps: Cadena de texto que representa la ubicación dentro de Google Maps (str)
+
+    -estado: Clave foránea relacionada con tabla Estado.
 
 *  Tabla Envío (declarada dentro de la app hojaderuta): Donde se crean todos los envíos.
     
@@ -106,7 +106,7 @@ A continuación se detallan las tablas y su relación.
    
     - destino: Clave foránea con tabla Nodos. Representa el destino del envío.
     
-    - otro_destino: Clave foránea relacionado con la tabla Destinos. Esta representa a un envío con destino exento a la organización. 
+    - otro_destino: Clave foránea relacionada con la tabla Destinos. Esta representa a un envío con destino exento a la organización. 
     
     - descripcion: Detalle de lo que se envía de clase TextField.(str)
     
@@ -114,31 +114,31 @@ A continuación se detallan las tablas y su relación.
     
     - hora: Hora de creación del envío. (time) 
 
-* Tabla SeguimientoDeEnvio (declarada dentro de la app hojaderuta): Detalla modificaciones dentro de un envio.
+* Tabla SeguimientoDeEnvio (declarada dentro de la app hojaderuta): Detalla modificaciones dentro de un envío.
     
     - id: Identificador único. (int)    
    
     - usuario: Clave foránea relacionada con la clase User de Django. Esta representa al usuario que modifica.
     
-    - envio: Clave foránea con tabla Envio.
+    - envio: Clave foránea con tabla Envío.
     
     - estado: Clave foránea con tabla Estado. Representa estado de dicho envío.
     
-    - fecha_de_modificacion: Fecha de modificacion del envío. (date)
+    - fecha_de_modificacion: Fecha de modificación del envío. (date)
     
-    - hora_de_modificacion: Hora de modificacion del envío. (time)   
+    - hora_de_modificacion: Hora de modificación del envío. (time)   
 
-* Tabla Perfil (declarada dentro de la app perfiles): Indica lon nodos (sucursales) a las cuales pertenecen los usuarios.
+* Tabla Perfil (declarada dentro de la app perfiles): Indica los nodos (sucursales) a las cuales pertenecen los usuarios.
   
     - id: Identificador único. (int)  
     
     - usuario: Clave uno a uno relacionada con la clase User de Django. Solo puede existir un perfil por usuario.
 
-    nodos: Clave muchos a muchos relacionada con la clase Nodos.
+    nodos: Clave muchos a muchos, relacionada con la clase Nodos.
 
-    reparto: Indica si el usuario es repartidor (bool).
+    reparto: Indica si el usuario es repartidor (booleana).
 
-    impresora: Clave foranea con clase InpresoraNodo.
+    impresora: Clave foránea con clase InpresoraNodo.
 
 * Tabla Links (declarada dentro de app link): Links de accesos para footer.
 
@@ -146,7 +146,7 @@ A continuación se detallan las tablas y su relación.
 
     - nombre: Nombre a que lo identifica y a mostrar. (str)
 
-    - url: Url del link al cual esta asociado. (str)
+    - url: URL del link al cual está asociado. (str)
 
     - icono: Imagen asociada al link.
 
@@ -156,3 +156,68 @@ A continuación se detallan las tablas y su relación.
 > [!NOTE]
 > Actualmente, la base de datos es la que Django ofrece por defecto (SQLite). En producción está planeado utilizar PostgreSQL, ya que es la base de datos con la que tengo más afinidad. 
 
+## Objetivos
+
+### Templatetags
+
+Dentro del proyecto se utlizan 2 templatetags dentro de la aplicacion hojaderuta. El primero es para filtrar dentro de un una tabla los destinos del envio (si es un nodo de la organizacion o externo). Este permite reutilizar la tabla sin necesidad de crear una a media segun la ocacion.
+
+```python
+from django import template
+
+register = template.Library()
+
+@register.filter(name= 'ver_destino')
+def ver_destino(envio):
+
+    if envio.destino == None:
+
+        return envio.otro_destino
+    
+    else:
+
+        return envio.destino
+```
+
+De esta forma se utiliza dentro de el template pasandole como unico parametro "envio".
+
+```html
+<div class="col">           
+    <div class="table-responsive">
+        <table class="table table-striped-columns table-sm">
+            <thead class="table-dark">
+                <tr>
+                <th scope="col">ID</th>
+                <th scope="col">Origen</th>
+                <th scope="col">Destino</th>
+                <th scope="col">Fecha</th>
+                <th scope="col">Hora</th>
+                <th scope="col">Estado</th>
+                </tr>
+            </thead>
+            <tbody>
+            {% for envios in otro_destino %}
+                
+                {% for envio in envios %}
+    
+                <tr>                      
+                    <th style="color: rgb(94, 94, 94);" scope="row">
+                        <button type="button" class="btn btn-primary">
+                            <a href="{% url 'ver_envio' envio.id %}">{{ envio.id }}</a>
+                        </button>
+                    </th>
+                    <td style="color: rgb(94, 94, 94);">{{ envio.origen }}</td>
+                    <td style="color: rgb(94, 94, 94);">{{ envio|ver_destino }}</td> <!--Templatetag-->
+                    <td style="color: rgb(94, 94, 94);">{{ envio.fecha }}</td>
+                    <td style="color: rgb(94, 94, 94);">{{ envio.hora }}</td>
+                    <td style="color: rgb(94, 94, 94);">{{ envio.estado }}</td>
+                </tr>   
+
+                {% endfor %}
+            
+            {% endfor %}
+
+            </tbody>
+        </table>
+    </div> 
+```
