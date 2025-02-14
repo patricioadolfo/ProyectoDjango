@@ -58,7 +58,6 @@ class Usuario(Parametros):
 
             self.params['otros_destinos'] = otros_destinos
 
-
         return render(request, 'hojaderuta/index.html', self.params )
 
     def nuevo_envio(self, request,):
