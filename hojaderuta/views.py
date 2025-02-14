@@ -61,11 +61,7 @@ class Usuario(Parametros):
 
         return render(request, 'hojaderuta/index.html', self.params )
 
-    def mis_envios(self, request):
-
-        self.params['preparados'] = []
-
-        self.params['en_camino'] = []
+    def nuevo_envio(self, request,):
 
         if request.method == "POST":       
         
@@ -83,7 +79,49 @@ class Usuario(Parametros):
                 
                 nuevo_envio.save()
                 
-                return redirect('mis_envios')   
+                return redirect('index')
+        
+        self.obtener_nodos(request)
+
+        self.obtener_nodos_destinos(self.nodos)
+
+        self.params['form'] = EnvioForm()
+
+        return render(request, 'hojaderuta/form_nuevo_envio.html', self.params )
+
+    def envio_otro_destino(self, request,):
+
+        if request.method == "POST":       
+        
+            form = EnvioOtroDestinoForm(request.POST)  
+
+            if form.is_valid():
+
+                origen = form.cleaned_data['origen']
+
+                otro_destino = form.cleaned_data['otro_destino']
+
+                descripcion = form.cleaned_data['descripcion']
+
+                nuevo_envio = Envio( origen = origen, otro_destino = otro_destino, descripcion = descripcion, usuario = request.user, estado = self.preparado )
+                
+                nuevo_envio.save()
+                
+                return redirect('index')
+        
+        self.obtener_nodos(request)
+
+        self.obtener_nodos_destinos(self.destinos)
+
+        self.params['form'] = EnvioForm()
+
+        return render(request, 'hojaderuta/form_nuevo_envio_otrodestino.html', self.params )    
+  
+    def mis_envios(self, request):
+
+        self.params['preparados'] = []
+
+        self.params['en_camino'] = []  
 
         if request.user.is_authenticated:
 
@@ -139,7 +177,7 @@ class Usuario(Parametros):
 
     def ver_envio(self, request, envio_id): 
 
-        #try:
+        try:
             self.obtener_nodos(request)
 
             envio = self.envio.get(id = envio_id)
@@ -156,9 +194,12 @@ class Usuario(Parametros):
 
             return render( request, 'hojaderuta/detalle_envio.html', self.params )
 
-        #except:
+        except:
 
-         #   raise Http404
+            raise Http404
 
-usuario = Usuario() 
+usuario = Usuario()
+
+usuario.obtener_links()
+
 

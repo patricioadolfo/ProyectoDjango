@@ -8,22 +8,27 @@
     <div class="col-xl-3 col-md-3 col-sm-12 col-xxl-3">
         <div class="row">
             <h4>
-                <b>Nuevo envio</b>
+                <b>Nuevo envio a otro destino</b>
             </h4>
         </div>
         <div class="row">
-            <img src="{% static 'imagenes/envios.png' %}" class="card-img-top">
+            <img src="{% static 'imagenes/destinos.png' %}" class="card-img-top">
         </div>
         <div class="row">
-            <p>Selecciona la sucursal de donde quieres hacer tu envio, la sucursal de destino
+            <p>Selecciona la sucursal de donde quieres hacer tu envio, el destino
                 y agrega una descripcion de lo que quieres enviar.
+
+                Si no encuantras el destino a donde quieres enviar, puedes crearlo desde este enlace.
             </p>
+        </div>
+        <div class="row">
+            <a type="button" class="btn btn-primary btn-sm" href="{% url 'crear_destino' %}">Nuevo destino</a>
         </div>
     </div>
 
     <div class="col-xl-9 col-md-9 col-sm-12 col-xxl-9">
-       <br>
-        <form  class="px-4 py-3" action="{% url 'nuevo_envio' %}" method="post">
+        <br>
+        <form  class="px-4 py-3" action="{% url 'envio_otro_destino' %}" method="post">
 
             {% csrf_token %}
             
@@ -34,41 +39,42 @@
                 <label for="id_origen">Desde</label>   
                 <div>
                     <select name="origen" class="form-select" required id="id_origen">
-                        {% if nodos_perfil %}
-                            
-                            {% for nodo in nodos_perfil %}
-                
-                                <option value='{{ nodo.id }}'>{{ nodo.nombre }}</option>
+                    {% if nodos_perfil %}
                         
-                            {% endfor %}
-                        
-                        {% endif %}
+                        {% for nodo in nodos_perfil %}
+            
+                            <option value='{{ nodo.id }}'>{{ nodo.nombre }}</option>
+                    
+                        {% endfor %}
+                    
+                    {% endif %}
                     </select>
                 </div>
             
-                <label for="id_destino">Para</label>   
+                <label for="id_otro_destino">Para</label>   
                 <div>
-                    <select name="destino" class="form-select" required id="id_destino">
+                    <select name="otro_destino" class="form-select" required id="id_otro_destino">
                         {% if nodos %}
                             
-                            {% for nodo in nodos %}
+                            {% for nodo in nodos %} 
                 
                                 <option value='{{ nodo.id }}'>{{ nodo }}</option>
                         
                             {% endfor %}
                         
-                        {% endif %}
+                            {% endif %}
                     </select>
                 </div>
+            
                 <label for="id_descripcion">Descripción</label>
                 <div>
+                
                     {{form.descripcion }}
                 </div>
-                <div>
-                    <input type="submit" value="OK" class="w-100 mb-2 btn btn-sm rounded-3 btn-primary" id="btn_ok">
-                </div>
-            </div>       
-        </form> 
+                
+                <input type="submit" value="OK" class="w-100 mb-2 btn btn-sm rounded-3 btn-primary" id="btn_ok">
+            
+        </form>   
     </div>
 </div>
 

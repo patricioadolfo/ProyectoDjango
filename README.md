@@ -225,7 +225,6 @@ A continuación se detallan las tablas y su relación.
 > Actualmente, la base de datos es la que Django ofrece por defecto (SQLite). En producción está planeado utilizar PostgreSQL, ya que es la base de datos con la que tengo más afinidad. 
 
 ## Objetivos
-
 ### Templatetags
 
 Dentro del proyecto se utlizan 2 templatetags dentro de la aplicacion hojaderuta. El primero es para filtrar dentro de un una tabla los destinos del envio (si es un nodo de la organizacion o externo). Este permite reutilizar la tabla sin necesidad de crear una a media segun la ocacion.
@@ -357,6 +356,123 @@ Este templatetag se utiliza en el template hojaderuta/detalle_envio.html
 
 </form>
 ```
+### Formularios
+
+Para la creacion de envios se crearon dos metodos diferentes, uno para envios entre sucursales y otro para envios hacia otra entidad que no pertenece a la organizacion, la diferencia es que se reenderizan disferentes datos de destino para los envios y los parametros para el guardado de dichos formularios tienen diferencias. 
+
+El primer caso se obtienen los nodos a los cuales pertenece el usuario y  los destinos dispoonibles q hay dentro de la organizacion para ser pasados al formulario. En el caso de ser un "Post" de parte de el usuario se guardan los datos, con signals se crea un seguimento de el envio (detallado aqui [Link Text](#Signals))y se redirige a la pagina principal.
+
+```python
+                            ## views.py
+
+class Usuario(Parametros):    
+    
+    def nuevo_envio(self, request,):
+
+        if request.method == "POST":       
+        
+            form = EnvioForm(request.POST)  
+
+            if form.is_valid():
+
+                origen = form.cleaned_data['origen']
+
+                destino = form.cleaned_data['destino']
+
+                descripcion = form.cleaned_data['descripcion']
+
+                nuevo_envio = Envio( origen = origen, destino = destino, descripcion = descripcion, usuario = request.user, estado = self.preparado )
+                
+                nuevo_envio.save()
+                
+                return redirect('index')
+        
+        self.obtener_nodos(request)
+
+        self.obtener_nodos_destinos(self.nodos)
+
+        self.params['form'] = EnvioForm()
+
+        return render(request, 'hojaderuta/form_nuevo_envio.html', self.params )
+```
+Desde **nuevo_envio** se llama a la clase **Envioform** situado en form.py, este retorna los campos obligatorios a completar por el usuario con un atributo da darle estilo dentro del template. Los campos fecha y hora se  crean por defecto con los datos actuales.
+
+```python
+                                ## form.py
+
+class EnvioForm(forms.ModelForm):
+    class Meta:
+            
+        model = Envio
+        
+        widgets = {
+            
+            'origen': forms.Select(attrs={'class': 'form-select'}),
+
+            'destino': forms.Select(attrs={'class': 'form-select'}),
+            
+            'descripcion': forms.Textarea(attrs={'class': 'form-control'}),
+        
+        }
+        
+        fields = ['origen', 'destino' ,'descripcion']
+
+
+    def __init__(self, *args, **kwargs):
+
+        super(EnvioForm, self).__init__(*args, **kwargs)
+```
+Por ultimo la seccion de de front-end.
+
+```html
+<form  class="px-4 py-3" action="{% url 'nuevo_envio' %}" method="post">
+
+    {% csrf_token %}
+    
+    <div class="form-control">
+
+        {% csrf_token %}
+        
+        <label for="id_origen">Desde</label>   
+        <div>
+            <select name="origen" class="form-select" required id="id_origen">
+                {% if nodos_perfil %}
+                    
+                    {% for nodo in nodos_perfil %}
+        
+                        <option value='{{ nodo.id }}'>{{ nodo.nombre }}</option>
+                
+                    {% endfor %}
+                
+                {% endif %}
+            </select>
+        </div>
+    
+        <label for="id_destino">Para</label>   
+        <div>
+            <select name="destino" class="form-select" required id="id_destino">
+                {% if nodos %}
+                    
+                    {% for nodo in nodos %}
+        
+                        <option value='{{ nodo.id }}'>{{ nodo }}</option>
+                
+                    {% endfor %}
+                
+                {% endif %}
+            </select>
+        </div>
+        <label for="id_descripcion">Descripción</label>
+        <div>
+            {{form.descripcion }}
+        </div>
+        <div>
+            <input type="submit" value="OK" class="w-100 mb-2 btn btn-sm rounded-3 btn-primary" id="btn_ok">
+        </div>
+    </div>       
+</form> 
+```
+
 ### Signals
 
 Se implemento con el fin de crear el seguimiento de cualquier envio, cuando el usuario realiza alguna modificacion con respecto al estado del envio. La funcion *crear_seguimiento* toma los datos de dicho envio y detalla el cambio que lo afecto.

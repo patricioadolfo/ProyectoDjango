@@ -18,7 +18,7 @@
             <p>Tienes {{ mis_envios }} envíos preparados / en camino. Para ver el detalle selecciona su Id. O crea nuevos envios desde el siguiente enlace.</p>
         </div>    
         <div class="row">
-            <a type="button" class="btn btn-primary btn-sm" href="{% url 'auth_logout' %}">Nuevo Envío</a>
+            <a type="button" class="btn btn-primary btn-sm" href="{% url 'nuevo_envio' %}">Nuevo Envío</a>
         </div>
     </div>
 
@@ -27,10 +27,10 @@
             <table class="table table-striped-columns table-sm">
                 <thead class="table-dark">
                     <tr>
-                    <th scope="col">ID</th>
-                    <th scope="col">Origen</th>
-                    <th scope="col">Destino</th>
-                    <th scope="col">Estado</th>
+                        <th scope="col">Origen</th>
+                        <th scope="col">Destino</th>
+                        <th scope="col">Estado</th>
+                        <th scope="col">ID</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -40,14 +40,12 @@
         
         
                         <tr>                      
-                            <th style="color: rgb(94, 94, 94);" scope="row">
-                                <button type="button" class="btn btn-primary">
-                                    <a href="{% url 'ver_envio' envio.id %}">{{ envio.id }}</a>
-                                </button>
-                            </th>
                             <td style="color: rgb(94, 94, 94);">{{ envio.origen }}</td>
                             <td style="color: rgb(94, 94, 94);">{{ envio|ver_destino }}</td>
                             <td style="color: rgb(94, 94, 94);">{{ envio.estado }}</td>
+                            <th style="color: rgb(94, 94, 94);" scope="row">
+                                <a  href="{% url 'ver_envio' envio.id %}" style="font-size: small;">{{ envio.id }}</a>
+                            </th>
                         </tr> 
         
                     {% endfor %}
@@ -66,7 +64,7 @@
                             <tr>
                                 <th style="color: rgb(94, 94, 94);" scope="row">
                                     <button type="button" class="btn btn-primary">
-                                        <a href="{% url 'ver_envio' envio.id %}">{{ envio.id }}</a>
+                                        <a  href="{% url 'ver_envio' envio.id %}" style="font-size: small;">{{ envio.id }}</a>
                                     </button>
                                 </th>
                                 <td style="color: rgb(94, 94, 94);">{{ envio.origen }}</td>
@@ -95,16 +93,16 @@
     </div>
     <div class="col-xl-6 col-md-6 col-sm-12 col-xxl-6">
         <div class="row">
-            <h5>
+            <h4>
                 <b>Mis envios</b>
-            </h5>
+            </h4>
         </div>
 
         <div class="row">
             <p>No tienes envíos preparados / en camino. Para crear un envio selecciona el siguiente enlace.</p>
         </div>    
         <div class="row">
-            <a type="button" class="btn btn-primary btn-sm" href="">Nuevo Envío</a>
+            <a type="button" class="btn btn-primary btn-sm" href="{% url 'nuevo_envio' %}">Nuevo Envío</a>
         </div>
     </div>
     {% endif %}  

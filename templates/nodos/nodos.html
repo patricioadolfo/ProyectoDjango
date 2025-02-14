@@ -8,11 +8,28 @@
 {% if user.is_authenticated %}
 
     <div class="container">
-        <div class="row" style="padding-top: 30px;">
-
-            {% include "nodos/tabla_nodo_destino.html" %}
-
+        <div class="row">
+            <div class="row">
+                <h3>
+                    <b>{{ pagina }}</b>
+                </h3>
+            </div>
+            <div class="row">
+                <p>Este es el listado de {{ pagina }} disponibles para realizar tus envios. 
+                    Para ver su ubicacion dentro Google Maps selecciona ver.</p>
+            </div>
         </div>
+        <br>
+        <div class="row">
+            {% include "nodos/tabla_nodo_destino.html" %}
+        </div>
+        {% if crear_nodo %}
+        <div class="row">
+            <div class="col">
+                {{ crear_nodo }}
+            </div>
+        </div>
+        {% endif %}
     </div>
 
 

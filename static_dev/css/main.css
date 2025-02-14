@@ -12371,7 +12371,12 @@ footer {
   border-color: #d9872d;
 }
 
-/* line 19, ../../../../mnt/0AA4097CA4096B8F/Django/farmacia/static_dev/scss/_tables.scss */
+/* line 9, ../../../../mnt/0AA4097CA4096B8F/Django/farmacia/static_dev/scss/_tables.scss */
+th {
+  font-size: small;
+}
+
+/* line 23, ../../../../mnt/0AA4097CA4096B8F/Django/farmacia/static_dev/scss/_tables.scss */
 table {
   border-collapse: collapse;
   border-radius: 6px;
@@ -12379,83 +12384,84 @@ table {
   max-width: 100%;
   width: 100%;
   margin: 0 auto;
+  font-size: small;
   position: relative;
 }
 
-/* line 28, ../../../../mnt/0AA4097CA4096B8F/Django/farmacia/static_dev/scss/_tables.scss */
+/* line 33, ../../../../mnt/0AA4097CA4096B8F/Django/farmacia/static_dev/scss/_tables.scss */
 table * {
   position: relative;
 }
 
-/* line 30, ../../../../mnt/0AA4097CA4096B8F/Django/farmacia/static_dev/scss/_tables.scss */
+/* line 35, ../../../../mnt/0AA4097CA4096B8F/Django/farmacia/static_dev/scss/_tables.scss */
 table td, table th {
   padding-left: 8px;
 }
 
-/* line 32, ../../../../mnt/0AA4097CA4096B8F/Django/farmacia/static_dev/scss/_tables.scss */
+/* line 37, ../../../../mnt/0AA4097CA4096B8F/Django/farmacia/static_dev/scss/_tables.scss */
 table thead tr {
   height: 60px;
   font-size: 16px;
 }
 
-/* line 37, ../../../../mnt/0AA4097CA4096B8F/Django/farmacia/static_dev/scss/_tables.scss */
+/* line 42, ../../../../mnt/0AA4097CA4096B8F/Django/farmacia/static_dev/scss/_tables.scss */
 table tbody tr {
   height: 48px;
 }
 
-/* line 38, ../../../../mnt/0AA4097CA4096B8F/Django/farmacia/static_dev/scss/_tables.scss */
+/* line 43, ../../../../mnt/0AA4097CA4096B8F/Django/farmacia/static_dev/scss/_tables.scss */
 table tbody tr:last-child {
   border: 0;
 }
 
-/* line 41, ../../../../mnt/0AA4097CA4096B8F/Django/farmacia/static_dev/scss/_tables.scss */
+/* line 46, ../../../../mnt/0AA4097CA4096B8F/Django/farmacia/static_dev/scss/_tables.scss */
 table td, table th {
   text-align: left;
 }
 
-/* line 42, ../../../../mnt/0AA4097CA4096B8F/Django/farmacia/static_dev/scss/_tables.scss */
+/* line 47, ../../../../mnt/0AA4097CA4096B8F/Django/farmacia/static_dev/scss/_tables.scss */
 table td.l, table th.l {
   text-align: right;
 }
 
-/* line 43, ../../../../mnt/0AA4097CA4096B8F/Django/farmacia/static_dev/scss/_tables.scss */
+/* line 48, ../../../../mnt/0AA4097CA4096B8F/Django/farmacia/static_dev/scss/_tables.scss */
 table td.c, table th.c {
   text-align: center;
 }
 
-/* line 44, ../../../../mnt/0AA4097CA4096B8F/Django/farmacia/static_dev/scss/_tables.scss */
+/* line 49, ../../../../mnt/0AA4097CA4096B8F/Django/farmacia/static_dev/scss/_tables.scss */
 table td.r, table th.r {
   text-align: center;
 }
 
 @media screen and (max-width: 35.5em) {
-  /* line 51, ../../../../mnt/0AA4097CA4096B8F/Django/farmacia/static_dev/scss/_tables.scss */
+  /* line 56, ../../../../mnt/0AA4097CA4096B8F/Django/farmacia/static_dev/scss/_tables.scss */
   table {
     display: block;
   }
-  /* line 52, ../../../../mnt/0AA4097CA4096B8F/Django/farmacia/static_dev/scss/_tables.scss */
+  /* line 57, ../../../../mnt/0AA4097CA4096B8F/Django/farmacia/static_dev/scss/_tables.scss */
   table > *, table tr, table td, table th {
     display: block;
   }
-  /* line 54, ../../../../mnt/0AA4097CA4096B8F/Django/farmacia/static_dev/scss/_tables.scss */
+  /* line 59, ../../../../mnt/0AA4097CA4096B8F/Django/farmacia/static_dev/scss/_tables.scss */
   table thead {
     display: none;
   }
-  /* line 55, ../../../../mnt/0AA4097CA4096B8F/Django/farmacia/static_dev/scss/_tables.scss */
+  /* line 60, ../../../../mnt/0AA4097CA4096B8F/Django/farmacia/static_dev/scss/_tables.scss */
   table tbody tr {
     height: auto;
     padding: 8px 0;
   }
-  /* line 56, ../../../../mnt/0AA4097CA4096B8F/Django/farmacia/static_dev/scss/_tables.scss */
+  /* line 61, ../../../../mnt/0AA4097CA4096B8F/Django/farmacia/static_dev/scss/_tables.scss */
   table tbody tr td {
     padding-left: 45%;
     margin-bottom: 12px;
   }
-  /* line 57, ../../../../mnt/0AA4097CA4096B8F/Django/farmacia/static_dev/scss/_tables.scss */
+  /* line 62, ../../../../mnt/0AA4097CA4096B8F/Django/farmacia/static_dev/scss/_tables.scss */
   table tbody tr td:last-child {
     margin-bottom: 0;
   }
-  /* line 58, ../../../../mnt/0AA4097CA4096B8F/Django/farmacia/static_dev/scss/_tables.scss */
+  /* line 63, ../../../../mnt/0AA4097CA4096B8F/Django/farmacia/static_dev/scss/_tables.scss */
   table tbody tr td:before {
     position: absolute;
     font-weight: 700;

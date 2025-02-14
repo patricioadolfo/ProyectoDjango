@@ -6,6 +6,10 @@
     border-color: $naranja-base;
 }
 
+th {
+  font-size: small;
+}
+
 // sets
 
 $gl-ms         : "screen and (max-width: 23.5em)"; // up to 360px
@@ -23,6 +27,7 @@ table             {
   max-width:100%; 
   width:100%;
   margin:0 auto;
+  font-size: small;
   position:relative;
   
   *               { position:relative }

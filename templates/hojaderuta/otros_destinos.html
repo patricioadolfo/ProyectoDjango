@@ -27,7 +27,7 @@
         </div>
         <br>
         <div class="row">
-            <a class="btn btn-primary btn-sm">Nuevo Envio</a>
+            <a type="button" class="btn btn-primary btn-sm" href="{% url 'envio_otro_destino' %}">Nuevo Envío</a>
         </div>
     </div>
 </div>
@@ -35,16 +35,16 @@
 {% if otros_destinos != 0%}
 <div class="row">
     <div class="col">           
-        <div class="table-responsive">
+
             <table class="table table-striped-columns table-sm">
                 <thead class="table-dark">
                     <tr>
-                    <th scope="col">ID</th>
-                    <th scope="col">Origen</th>
-                    <th scope="col">Destino</th>
-                    <th scope="col">Fecha</th>
-                    <th scope="col">Hora</th>
-                    <th scope="col">Estado</th>
+                        <th scope="col">Origen</th>
+                        <th scope="col">Destino</th>
+                        <th scope="col">Fecha</th>
+                        <th scope="col">Hora</th>
+                        <th scope="col">Estado</th>
+                        <th scope="col">ID</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -53,17 +53,15 @@
                     {% for envio in envios %}
         
         
-                        <tr>                      
-                            <th style="color: rgb(94, 94, 94);" scope="row">
-                                <button type="button" class="btn btn-primary">
-                                    <a href="{% url 'ver_envio' envio.id %}">{{ envio.id }}</a>
-                                </button>
-                            </th>
+                        <tr>                     
                             <td style="color: rgb(94, 94, 94);">{{ envio.origen }}</td>
                             <td style="color: rgb(94, 94, 94);">{{ envio|ver_destino }}</td>
                             <td style="color: rgb(94, 94, 94);">{{ envio.fecha }}</td>
                             <td style="color: rgb(94, 94, 94);">{{ envio.hora }}</td>
                             <td style="color: rgb(94, 94, 94);">{{ envio.estado }}</td>
+                            <td style="color: rgb(94, 94, 94);" scope="row">
+                                <a  href="{% url 'ver_envio' envio.id %}" style="font-size: small;">{{ envio.id }}</a>
+                            </td>
                         </tr> 
         
                     {% endfor %}
@@ -72,7 +70,7 @@
 
                 </tbody>
             </table>
-        </div>            
+      
     </div>   
 </div>
 {% endif %}

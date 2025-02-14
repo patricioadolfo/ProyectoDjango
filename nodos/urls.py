@@ -7,7 +7,7 @@ urlpatterns = [
     
     path('destinos/', nodos_destinos.ver_destinos, name= 'ver_destinos'),
     
-    path('nuevo/', CrearDestino.as_view(), name = 'crear_destino'),
+    path('destinos/nuevo/', CrearDestino.as_view(), name = 'crear_destino'),
     
     path('nuevo/destino_creado/', DestinoCreado.as_view(), name = 'destino_creado'),
 
