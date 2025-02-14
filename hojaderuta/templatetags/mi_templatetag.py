@@ -30,7 +30,7 @@ def cambio_estado(envio, perfil):
                     <select name="estado" class="form-select">
                         <option value="{}">{}</option>
                     </select>
-                    
+                    <br>
                     <input type="submit" value="OK" class="btn btn-primary btn-sm" id="btn_ok">
                 
                 """, parametro.ignorado.id, parametro.ignorado.nombre )
@@ -39,7 +39,7 @@ def cambio_estado(envio, perfil):
             
             return format_html('<p>No hay cambios de estados disponibles</p>')
     
-    if envio.destino in perfil:
+    elif envio.destino in perfil:
 
         if envio.estado == parametro.en_camino:
 
@@ -48,7 +48,7 @@ def cambio_estado(envio, perfil):
                     <select name="estado" class="form-select">
                         <option value="{}">{}</option>
                     </select>
-                    
+                    <br>
                     <input type="submit" value="OK" class="btn btn-primary btn-sm" id="btn_ok">
                 
                 """, parametro.entregado.id, parametro.entregado.nombre )

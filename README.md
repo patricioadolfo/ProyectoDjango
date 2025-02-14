@@ -104,7 +104,8 @@ Estas dos secciones ofrecen información de los orígenes/destinos habilitados, 
 
 ### Sección QR
 
-Aún no realizada, se proyecta utilizar la cámara para escanear el QR de los envíos y acceder de forma rápida a ellos.
+> [!NOTE]
+> Aún no realizada, se proyecta utilizar la cámara para escanear el QR de los envíos y acceder de forma rápida a ellos.
 
 ### Sección Footer
 
@@ -113,6 +114,8 @@ Dentro del sitio se puede ver el footer, el cual contiene links de acceso a pág
 ## Base de datos
 
 ![Esquema de la base de datos](static_dev/db_hojaderuta/db.jpg)
+
+## Estructura
 
 A continuación se detallan las tablas y su relación.
 
@@ -221,13 +224,13 @@ A continuación se detallan las tablas y su relación.
     - estado: Clave foránea con tabla Estado. Representa estado del link (activo/inactivo).
 
 
-> [!NOTE]
+> [!IMPORTANT]
 > Actualmente, la base de datos es la que Django ofrece por defecto (SQLite). En producción está planeado utilizar PostgreSQL, ya que es la base de datos con la que tengo más afinidad. 
 
 ## Objetivos
 ### Templatetags
 
-Dentro del proyecto se utlizan 2 templatetags dentro de la aplicacion hojaderuta. El primero es para filtrar dentro de un una tabla los destinos del envio (si es un nodo de la organizacion o externo). Este permite reutilizar la tabla sin necesidad de crear una a media segun la ocacion.
+Dentro del proyecto se utilizan 2 templatetags dentro de la aplicación hojaderuta. El primero es para filtrar dentro de una tabla los destinos del envío (si es un nodo de la organización o externo). Este permite reutilizar la tabla sin necesidad de crear una a media según la ocasión.
 
 ```python
 from django import template
@@ -246,7 +249,7 @@ def ver_destino(envio):
         return envio.destino
 ```
 
-De esta forma se utiliza dentro de el template pasandole como unico parametro "envio".
+De esta forma se utiliza dentro del template pasándole como único parámetro "envío".
 
 ```html
 <table class="table table-striped-columns table-sm">
@@ -287,7 +290,7 @@ De esta forma se utiliza dentro de el template pasandole como unico parametro "e
 
 ```
 
-El segundo templatetag utilizado esta relacionado con formularios para hacer cambios de estado dentro de los envios, este toma dos parametros el envio y el perfil del usuario logueado, y retorna en formato html un select con la opcion que corresponda. Si el usuario no esta habilitado para modificar lo notificara.
+El segundo templatetag utilizado está relacionado con formularios para hacer cambios de estado dentro de los envíos. Este toma dos parámetros: el envío y el perfil del usuario logueado, y retorna en formato HTML un select con la opción que corresponda. Si el usuario no está habilitado para modificar, lo notificará.
 
 ```python
 
@@ -358,9 +361,9 @@ Este templatetag se utiliza en el template hojaderuta/detalle_envio.html
 ```
 ### Formularios
 
-Para la creacion de envios se crearon dos metodos diferentes, uno para envios entre sucursales y otro para envios hacia otra entidad que no pertenece a la organizacion, la diferencia es que se reenderizan disferentes datos de destino para los envios y los parametros para el guardado de dichos formularios tienen diferencias. 
+Para la creación de envíos se crearon dos métodos diferentes, uno para envíos entre sucursales y otro para envíos hacia otra entidad que no pertenece a la organización, la diferencia es que se renderizan diferentes datos de destino para los envíos y los parámetros para el guardado de dichos formularios tienen diferencias. 
 
-El primer caso se obtienen los nodos a los cuales pertenece el usuario y  los destinos dispoonibles q hay dentro de la organizacion para ser pasados al formulario. En el caso de ser un "Post" de parte de el usuario se guardan los datos, con signals se crea un seguimento de el envio (detallado aqui [Link Text](#Signals))y se redirige a la pagina principal.
+El primer caso se obtienen los nodos a los cuales pertenece el usuario y  los destinos disponibles que hay dentro de la organización para ser pasados al formulario. En el caso de ser un "Post" de parte del usuario, se guardan los datos, con signals se crea un seguimiento del envío (detallado [aqui](#Signals))y se redirige a la página principal.
 
 ```python
                             ## views.py
@@ -395,7 +398,7 @@ class Usuario(Parametros):
 
         return render(request, 'hojaderuta/form_nuevo_envio.html', self.params )
 ```
-Desde **nuevo_envio** se llama a la clase **Envioform** situado en form.py, este retorna los campos obligatorios a completar por el usuario con un atributo da darle estilo dentro del template. Los campos fecha y hora se  crean por defecto con los datos actuales.
+Desde **nuevo_envio** se llama a la clase **Envioform** la cual hereda de la clase **ModelForm** de Django, situado en form.py. Este retorna los campos obligatorios a completar por el usuario con un atributo para darle estilo dentro del templarte. Los campos, fecha y hora se  crean por defecto con los datos actuales.
 
 ```python
                                 ## form.py
@@ -422,7 +425,7 @@ class EnvioForm(forms.ModelForm):
 
         super(EnvioForm, self).__init__(*args, **kwargs)
 ```
-Por ultimo la seccion de de front-end.
+Por último, la sección de front-end.
 
 ```html
 <form  class="px-4 py-3" action="{% url 'nuevo_envio' %}" method="post">
@@ -472,10 +475,67 @@ Por ultimo la seccion de de front-end.
     </div>       
 </form> 
 ```
+Otro caso de formulario dentro del sitio es para la creación de nuevos destinos. También hereda de **ModelForm** y posee una sección para enviar notificaciones (aún no definidas) a la hora de la creación de un nuevo destino realizado con éxito.
 
+```python
+                            ##  forms.py
+
+class DestinoForm(ModelForm):
+
+    captcha = CaptchaField()
+
+    class Meta:
+
+        model = Destino
+
+        fields = [
+
+            'nombre','calle', 'numero', 'localidad', 'telefono', 'maps', 'estado' 
+
+        ]
+
+    def notificar(self,):
+
+        nombre = self.cleaned_data['nombre']
+        
+        calle = self.cleaned_data['calle'] 
+        
+        numero = self.cleaned_data['numero']
+        
+        localidad = self.cleaned_data['localidad']
+        
+        telefono = self.cleaned_data['telefono']
+        
+        maps = self.cleaned_data['maps']
+        
+        estado = self.cleaned_data['estado']
+
+        print('logica para enviar notificacion')
+```
+
+```python
+                            ##  views.py
+                            
+class CrearDestino(FormView):
+
+    template_name = 'nodos/crear_destino.html'
+
+    form_class = DestinoForm
+
+    success_url = 'destino_creado'
+
+    def form_valid(self, form):
+
+        form.save()
+
+        form.notificar()
+
+        return super().form_valid(form)
+```
 ### Signals
 
-Se implemento con el fin de crear el seguimiento de cualquier envio, cuando el usuario realiza alguna modificacion con respecto al estado del envio. La funcion *crear_seguimiento* toma los datos de dicho envio y detalla el cambio que lo afecto.
+Se implementó con el fin de crear el seguimiento de cualquier envío, cuando el usuario realiza alguna modificación con respecto al estado del envío. La función *crear_seguimiento* toma los datos del envío; en el caso de ya existir, se detalla el cambio que lo afectó. En el caso de ser un envío nuevo, crea el detalle y como estado toma por defecto "PREPARADO".
+
 
 ```python
 from django.db.models.signals import post_save
@@ -511,4 +571,46 @@ def crear_seguimiento( sender, instance, created, **kwargs):
             estado =  instance.estado
             
             )
+```
+### Panel admin
+
+Para el optimizar el panel admin se crearon tres métodos. El primero es la acción **ignorar_envios** la cual cambia el estado de los envíos seleccionados de forma masiva al estado ignorado. 
+
+```python
+    def ignorar_envios( self, request, queryset ):
+
+        registro = queryset.update( estado = self.parametro.ignorado )
+
+        mensaje = "%s Envios ignorados" % registro
+
+        self.message_user(request, mensaje)
+```
+El segundo cuenta con una página intermedia, retorna ciertos detalles de los envíos seleccionados a un template ubicado en admin/envios/envios.html.
+
+```python
+    def ver_html( self, request, queryset ):
+        
+        self.parametro.params["envios"] = queryset
+
+        return render( request, "admin/envios/envios.html", self.parametro.params )
+
+    ignorar_envios.short_description = 'Ignorar Envio'
+
+    ver_json.short_description = 'Exportar json'
+
+    ver_html.short_description = 'Ver en html'
+
+    actions = [ "ignorar_envios", "ver_json", "ver_html" ]
+```
+
+Por último, un método que retorna los envíos seleccionados en formato JSON.
+
+```python
+    def ver_json( self, request, queryset ):
+
+        response = HttpResponse( content_type = "application/json" )
+
+        serializers.serialize( "json", queryset, stream = response )
+
+        return response
 ```

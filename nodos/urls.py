@@ -9,6 +9,6 @@ urlpatterns = [
     
     path('destinos/nuevo/', CrearDestino.as_view(), name = 'crear_destino'),
     
-    path('nuevo/destino_creado/', DestinoCreado.as_view(), name = 'destino_creado'),
+    path('destinos/nuevo/destino_creado/', DestinoCreado.as_view(), name = 'destino_creado'),
 
 ]
