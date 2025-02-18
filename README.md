@@ -5,7 +5,9 @@
 Se utilizaron las siguentes librerias:
 
 > pip install django-registration-redux
+
 > pip install django-qr-code
+
 > pip install  django-simple-captcha
 ## Descripción del proyecto
 
