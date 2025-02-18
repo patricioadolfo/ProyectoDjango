@@ -1,4 +1,12 @@
 # PROYECTO DJANGO
+
+## Librerias
+
+Se utilizaron las siguentes librerias:
+
+> pip install django-registration-redux
+> pip install django-qr-code
+> pip install  django-simple-captcha
 ## Descripción del proyecto
 
 El proyecto consiste en un sitio para envíos desde una sucursal (nodo) a otra dentro de una cadena de farmacias. Con la posibilidad de crear nuevos destinos diferentes a las sucursales en caso de ser necesario. 
