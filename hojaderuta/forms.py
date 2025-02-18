@@ -12,7 +12,7 @@ class EnvioForm(forms.ModelForm):
 
             'destino': forms.Select(attrs={'class': 'form-select'}),
             
-            'descripcion': forms.Textarea(attrs={'class': 'form-control'}),
+            'descripcion': forms.Textarea(attrs={'class': 'form-control', 'style': 'height: 206px;'}),
         
         }
         
@@ -34,7 +34,7 @@ class EnvioOtroDestinoForm(forms.ModelForm):
 
             'otro_destino': forms.Select(attrs={'class': 'form-select'}),
             
-            'descripcion': forms.Textarea(attrs={'class': 'form-control'}),
+            'descripcion': forms.Textarea(attrs={'class': 'form-control', 'style': 'height: 175px;'}),
         
         }
         

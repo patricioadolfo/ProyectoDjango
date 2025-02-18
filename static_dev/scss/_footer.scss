@@ -1,6 +1,13 @@
-footer {
-    position:fixed;
-    left:0px;
-    bottom:0px;
+  //#footer {
+  //  padding-top: 10px;
+  //  position: ;
+  //  bottom: 0;
+  //  width: 100%;           /* altura de pie de página */
+  //}
+
+  footer {
+    position:absolute;
+    bottom:0;
     width:100%;
-  }
+    background:#999;
+ }

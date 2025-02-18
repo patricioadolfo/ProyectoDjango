@@ -1,27 +1,28 @@
 
-<div class="row">
-	{% if user.is_authenticated %}
-	<div class="col-sm-12 col-md-8 col-xl-9 col-xxl-9">
-		<div class="row">
+<footer class="d-flex flex-wrap justify-content-between align-items-center border-top bg-dark" data-bs-theme="dark">
+	  
+  
+	  <div class="col-md-4 d-flex align-items-center">
+		<a href="/" class="mb-3 me-2 mb-md-0 text-body-secondary text-decoration-none lh-1">
+		  <svg class="bi" width="30" height="24"><use xlink:href="#bootstrap"></use></svg>
+		</a>
+		<span class="mb-3 mb-md-0 text-body-secondary">© 2024, HojaDeRuta</span>
+	  </div>
+	  <ul class="nav col-md-4 justify-content-end list-unstyled d-flex" style="padding-right:20px;">
+		{% if user.is_authenticated %}
 		{% for link in links %}	
-			<div class="col	">	
-				<a class="text-decoration-none" href="{{ link.url }}">
-					<img src="/media/{{ link.icono }}" width="30" height="30">
-					<span class="text-body-secondary">{{ link.nombre }}</span>
-				</a>
-			</div>	
+		<li class="ms-3" style="padding: 10px;">
+			<a class="text-body-secondary" href="{{ link.url }}">
+				<div class="row">
+					<img src="/media/{{ link.icono }}" width="24" height="24">
+				</div>
+				<div class="row">
+					{{ link.nombre }}
+				</div>
+				
+			</a>
+		</li>
 		{% endfor %}
-		</div>
-	</div>	
-		
-	
-	{% endif %}
-	<div class="col-sm-12 col-md-4 col-xl-3 col-xxl-3 text-end">
-		<span class="text-body-secondary" style="padding-right: 5px; font-size: small;">&copy; 2024, HojaDeRuta</span>		
-	</div>
-</div>
-
-
-
-
-
+		{% endif %}
+	</ul>
+</footer>

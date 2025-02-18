@@ -12,56 +12,56 @@
 <div class="container">
     <br>
     <div class="row">
-        <div class="col-xl-4 col-md-4 col-sm-12 col-xxl-4">
+        <div class="col-xl-6 col-md-6 col-sm-12 col-xxl-6">
+            <h4>
+                <b>Detalle del envío</b>
+            </h4>
+            <br>
+            <p>
+                Desde {{ envio.origen }} hasta {{ envio|ver_destino }}. Creado el {{ envio.fecha }} a 
+                las {{ envio.hora }} por {{ envio.usuario }}.
+            </p>
 
-            <div class="row">
-                <h4>
-                    <b>Detalle del envío</b>
-                </h4>
-                <br>
-                <p>
-                    Desde {{ envio.origen }} hasta {{ envio|ver_destino }}. Creado el {{ envio.fecha }} a 
-                    las {{ envio.hora }} por {{ envio.usuario }}.
-                </p>
-    
-                <p>Descripcion: {{ envio.descripcion }}</p>
-            </div>
-            
-            <div class="row">
-                <h4>
-                    <b>Qr</b>
-                </h4>
-                {% qr_from_data envio.id size="m" %}
-            </div>
-
+            <p>Descripcion: {{ envio.descripcion }}</p>
         </div>
-
-        <div class="col-xl-8 col-md-8 col-sm-12 col-xxl-8">
+        
+        <div class="col-xl-6 col-md-6 col-sm-12 col-xxl-6">
+            <div style="border: 1px solid #d63384;">
+            {% qr_from_data envio.id size="m" %}
+            </div>
+        </div>
+    </div>
+    <br>
+    <br>
+    <div class="row">
+        <div class="col-xl-6 col-md-6 col-sm-12 col-xxl-6">
             <h4>
                 <b>Seguimiento del envío</b>
             </h4>        
             <div class="table-responsive">
-                <table class="table table-striped-columns table-sm">
-                    <thead class="table-dark">
+                <table class="table table-striped-columns table-dark table-sm">
+                    <thead>
                         <tr>
-                        <th scope="col">Estado</th>
-                        <th scope="col">Usuario</th>
-                        <th scope="col">Fecha
-                        <th scope="col">Hora</th>
+                        <th style="color: #d63384;font-size: small" scope="col">Estado</th>
+                        <th style="color: #d63384;font-size: small" scope="col">Usuario</th>
+                        <th style="color: #d63384;font-size: small" scope="col">Fecha
+                        <th style="color: #d63384;font-size: small" scope="col">Hora</th>
                         </tr>
                     </thead>
                     <tbody>
                         {% for seguimiento in envio.seguimientodeenvio_set.all %}   
                         <tr>                      
-                            <th style="color: rgb(94, 94, 94);" scope="row">{{seguimiento.estado}}</th>
-                            <td style="color: rgb(94, 94, 94);">{{seguimiento.usuario}}</td>
-                            <td style="color: rgb(94, 94, 94);">{{ seguimiento.fecha_de_modificacion }}</td>
-                            <td style="color: rgb(94, 94, 94);">{{ seguimiento.hora_de_modificacion }}</td>
+                            <th scope="row">{{seguimiento.estado}}</th>
+                            <td>{{seguimiento.usuario}}</td>
+                            <td>{{ seguimiento.fecha_de_modificacion }}</td>
+                            <td>{{ seguimiento.hora_de_modificacion }}</td>
                         </tr> 
                         {% endfor %}
                     </tbody>
                 </table>
-            </div>  
+            </div> 
+        </div> 
+        <div class="col-xl-6 col-md-6 col-sm-12 col-xxl-6">
             <h4>
                 <b>Cambiar de estado</b>
             </h4> 

@@ -24,26 +24,25 @@
 
     <div class="col-xl-9 col-md-9 col-sm-12 col-xxl-9">           
         <div class="table-responsive">
-            <table class="table table-striped-columns table-sm">
-                <thead class="table-dark">
+            <table class="table table-striped-columns table-dark table-sm">
+                <thead>
                     <tr>
-                        <th scope="col">Origen</th>
-                        <th scope="col">Destino</th>
-                        <th scope="col">Estado</th>
-                        <th scope="col">ID</th>
+                        <th style="color: #d63384;font-size: small" scope="col">Origen</th>
+                        <th style="color: #d63384;font-size: small" scope="col">Destino</th>
+                        <th style="color: #d63384;font-size: small" scope="col">Estado</th>
+                        <th style="color: #d63384;font-size: small" scope="col">ID</th>
                     </tr>
                 </thead>
                 <tbody>
                 {% for envios in preparados %}
                     
                     {% for envio in envios %}
-        
-        
+              
                         <tr>                      
-                            <td style="color: rgb(94, 94, 94);">{{ envio.origen }}</td>
-                            <td style="color: rgb(94, 94, 94);">{{ envio|ver_destino }}</td>
-                            <td style="color: rgb(94, 94, 94);">{{ envio.estado }}</td>
-                            <th style="color: rgb(94, 94, 94);" scope="row">
+                            <td>{{ envio.origen }}</td>
+                            <td>{{ envio|ver_destino }}</td>
+                            <td>{{ envio.estado }}</td>
+                            <th scope="row">
                                 <a  href="{% url 'ver_envio' envio.id %}" style="font-size: small;">{{ envio.id }}</a>
                             </th>
                         </tr> 

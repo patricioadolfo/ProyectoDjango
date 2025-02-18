@@ -27,7 +27,7 @@ def cambio_estado(envio, perfil):
 
             return format_html(
                 """
-                    <select name="estado" class="form-select">
+                    <select name="estado" class="form-control">
                         <option value="{}">{}</option>
                     </select>
                     <br>
