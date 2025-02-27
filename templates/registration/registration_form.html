@@ -1,5 +1,8 @@
 {% extends "registration/registration_base.html" %}
+
 {% load i18n %}
+
+{% load mi_templatetag %}
 
 {% block title %}{% trans "Register for an account" %}{% endblock %}
 
@@ -7,13 +10,22 @@
 
 {% include 'titulo.html' %}
 
-<form method="post" action="">
-    {% csrf_token %}
-    {{ form.as_p }}
-    <input type="submit" value="{% trans 'Submit' %}" />
-</form>
+<div class="container">
+    <div class="row">
+        <div class="col-sm-12 col-md-4 col-xl-4 card-login text-center">
+            <form method="post" action="">
+                {% csrf_token %}
+                {{ form|class_form }}
+                <br>
+                <input type="submit" class="btn btn-primary btn-sm" value="{% trans 'Submit' %}" />
+            </form>
+        </div> 
 
-{% include 'login-register.html' %}
+        <div class="col-sm-12 col-md-7 col-xl-7">
+            {% include 'login-register.html' %}
+        </div>
+    </div>
+</div>
 
 {% endblock %}
 

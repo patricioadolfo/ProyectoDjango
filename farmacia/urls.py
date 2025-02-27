@@ -26,6 +26,8 @@ urlpatterns = [
     path('', include('hojaderuta.urls')),
 
     path('nodos/', include('nodos.urls')),
+
+    path('perfil/', include('perfiles.urls')),
     
     path('accounts/', include('registration.backends.default.urls')),
 

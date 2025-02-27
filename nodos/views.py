@@ -37,12 +37,6 @@ class NodosDestinos(Parametros):
 
         return render(request, 'nodos/nodos.html', self.params )
     
-
-nodos_destinos= NodosDestinos()
-
-nodos_destinos.obtener_links()
-
-
 class CrearDestino(FormView):
 
     template_name = 'nodos/crear_destino.html'
@@ -67,3 +61,8 @@ class DestinoCreado(View):
     def get(self, request):
 
         return render(request, self.template, {'mensaje': 'Destino Creado'})
+
+
+nodos_destinos= NodosDestinos()
+
+nodos_destinos.obtener_links()

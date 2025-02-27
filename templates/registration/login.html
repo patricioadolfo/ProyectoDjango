@@ -1,6 +1,7 @@
 {% extends "registration/registration_base.html" %}
 
 {% load i18n %}
+{% load mi_templatetag %}
 
 {% block title %}{% trans "Log in" %}{% endblock %}
 
@@ -9,39 +10,20 @@
 {% include 'titulo.html' %}
 
 <di class="container">
-    <div class="row card-login">
-        <div class="col-sm-12 col-md-6 col-xl-6">
+    <div class="row">
+        <div class="col-sm-12 col-md-4 col-xl-4 card-login text-center">
             <form method="post" action="">
 
                 {% csrf_token %}
-                    <div class="form-signin w-100 m-auto">
-                        <div class="col text-center">
-                            <label for="id_username">
-                                {{ form.username.label_tag }}
-                            </label>                            
-                            <div class="form-floating">
-                                <input class="form-control" type="text" name="username" autofocus="" autocapitalize="none" autocomplete="username" maxlength="150" required="" id="id_username">   
-                            </div>
- 
-                            <br>
-                            <label for="id_password">
-                                {{ form.password.label_tag }}
-                            </label>
-                            <div class="form-floating">
-                                <input  class="form-control" type="password" name="password" autocomplete="current-password" required="" id="id_password">
-                            </div>
-                            <br> 
-                            <div>
-                                <input class="btn btn-primary" type="submit" value="{% trans 'Log in' %}" />
-                                <input type="hidden" name="next" value="{{ next }}" />
-                            </div> 
-                        </div>
-                    </div> 
+                {{ form|class_form }}
+                <br>
+                <input class="btn btn-primary btn-sm" type="submit" value="{% trans 'Log in' %}" />
+                <input type="hidden" name="next" value="{{ next }}" />
 
             </form>
-        </div>
-        <div class="col-sm-12 col-md-6 col-xl-6 padding-card">  
-            <div class="text-center">
+ 
+            <div>
+                <br>
                 <p class="p-color1">{% trans "Forgot your password?" %} 
                     <a class= "p-color-gris" href="{% url 'auth_password_reset' %}">{% trans "Reset it" %}</a>.
                 </p>
@@ -52,12 +34,14 @@
                     <a  class= "p-color-gris" href= "{% url 'admin:index' %}">Inicia sesión</a>
                 </p>
             </div> 
+        </div>
+        <div class="col-sm-12 col-md-7 col-xl-7">
+            {% include 'login-register.html' %}
         </div> 
     </div>
-
 </di>
 
-{% include 'login-register.html' %}
+<!--{% include 'login-register.html' %}-->
 
 {% endblock %}
 

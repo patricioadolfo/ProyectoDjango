@@ -1,0 +1,85 @@
+{% extends "layout.html" %}
+
+{% load static %}
+
+{% block content %}
+              
+{% if user.is_authenticated %}
+
+    <div class="container">
+        <br>
+        <div class="row">
+            <div class="col-sm-2 col-md-2 col-xl-2 col-xxl-2 text-center">
+                <h3><b>Perfil</b></h3>
+            </div>
+
+            <div class="col-sm-12 col-md-6 col-xl-6 col-xxl-6">  
+                <p>Selecciona el o los nodos en para agregar a tu perfil. Manten 
+                    actualizado tus datos de contacto.</p>  
+            </div>  
+        </div>
+        <div class="row card-login">
+            <form action="{% url 'modificar_nodos' %}" method="post">
+                {% csrf_token %}
+                <div class="row">
+                    <div class="col-sm-10 col-md-10 col-xl-10 col-xxl-10">
+                        <div class="row">
+                            {% for field in form_nodos %}
+                                {% for tag in field %} 
+                                <div class="col-sm-4 col-md-4 col-xl-4 col-xxl-4">
+                                    {{ tag }}
+                                </div>
+                                {% endfor %}
+                            {% endfor %}
+                        </div>
+                    </div>
+                    <div class="col-sm-2 col-md-2 col-xl-2 col-xxl-2 justify-content-end list-unstyled d-flex">
+                        <input type="submit" value="Agregar" class="btn btn-primary btn-sm" id="btn_ok">
+                    </div> 
+                </div>
+            </form>           
+        </div>
+        <div class="row card-login">
+            <div class="col">
+                <form action="{% url 'actualizar_datos' %}" method="post">                       
+                    {% csrf_token %}
+                    <div class="row">
+                        <div class="col-sm-10 col-md-10 col-xl-10 col-xxl-10">
+                            <div class="row">
+                                <tr>
+                                    <th><label for="id_first_name">Nombre:</label></th>
+                                    <td>                                    
+                                      <input class="form-control" type="text" name="first_name" value="{{ usuario.first_name }}" maxlength="150" id="id_first_name">                                                
+                                    </td>
+                                  </tr>
+                                  <tr>
+                                    <th><label for="id_last_name">Apellido:</label></th>
+                                    <td>                                     
+                                      <input  class="form-control" type="text" name="last_name" value="{{ usuario.last_name }}" maxlength="150" id="id_last_name">                                      
+                                    </td>
+                                  </tr>                              
+                                  <tr>
+                                    <th><label for="id_email">Dirección de email:</label></th>
+                                    <td>
+                                      <input class="form-control" type="email" name="email" value="{{ usuario.email }}" maxlength="254" id="id_email">
+                                    </td>
+                                  </tr>                                
+                            </div>
+                        </div>  
+
+                        <div class="col-sm-2 col-md-2 col-xl-2 col-xxl-2 justify-content-end d-flex">
+                            <input class="btn btn-primary btn-sm" type="submit" value="Guardar"/>
+                        </div> 
+                    </div>
+
+                </form>
+            </div>
+        </div>
+    </div>
+
+{% else %}
+    {% include 'titulo.html' %}
+    {% include "login-register.html" %}
+{% endif %}
+
+{% endblock %}

@@ -4,57 +4,19 @@
 
 {% block content %}
 
-<div class="container">
-    <br>
-    <div class="row">               
-        {% if user.is_authenticated %}
-            <div class="col-xl-2 col-md-3 col-sm-12 col-xxl-3">
-                <h3>
-                    <b>Hola {{ user.get_username }}!</b>
-                </h3>
-            </div>
-            <div class="col-xl-10 col-md-9 col-sm-12 col-xxl-9">
-            {% if nodos_perfil %}
-                <p>Estas habilitado para realizar envíos y recepcionarlos en el nodo:
-                    {% for nodo in nodos_perfil %}
-                        <code>{{ nodo }} </code>.
-                    {% endfor %} 
-                    Para agregar o modificar tus nodos dirigete a la seccion de perfil.              
-                </p>             
-            {% else %}
-                <p>
-                    No tienes un nodo asignado aún. Comunicate con el administrador para que te 
-                    proporcione uno. O completa tu perfil desde este <a href="">link</a> para comenzar.
-                </p>
-            {% endif %}
-            </div>
+    {% if user.is_authenticated %}
 
-        {% else %} 
-            {% include 'titulo.html' %}
-            {% include "login-register.html" %}
-        {% endif %}
-    </div>
-</div>
+        <div class="container"> 
+            {% include "hojaderuta/mis_envios.html" %} 
+            <br>
+            {% include "hojaderuta/para_recibir.html" %}
+            <br>
+            {% include "hojaderuta/otros_destinos.html" %}
+        </div>
 
-{% if user.is_authenticated %}
-
-    <div class="container">
-        <br>   
-        
-        {% include "hojaderuta/mis_envios.html" %} 
-
-        <br>
-        <br>
-
-        {% include "hojaderuta/para_recibir.html" %} 
-
-        <br>
-        <br>
-
-        {% include "hojaderuta/otros_destinos.html" %}
-
-    </div>
-
-{% endif %}
+    {% else %}
+        {% include 'titulo.html' %}
+        {% include "login-register.html" %}
+    {% endif %}
 
 {% endblock %}

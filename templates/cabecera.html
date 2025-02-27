@@ -1,0 +1,37 @@
+<div class="container">
+    <br>
+    <div class="row">    
+        <div class="col-xl-2 col-md-3 col-sm-12 col-xxl-3 text-center">
+            <h2>
+                <b>Hola {{ user.get_username }}!</b>
+            </h2>
+        </div>
+        <div class="col-xl-10 col-md-9 col-sm-12 col-xxl-9">
+            <div class="row">
+                {% if nodos_perfil %}
+                    <p>Estas habilitado para realizar envíos y recepcionarlos en el nodo:
+                        {% for nodo in nodos_perfil %}
+                            <code>{{ nodo }} </code>.
+                        {% endfor %} 
+                        Para agregar o modificar tus nodos dirigete a la seccion de perfil.              
+                    </p>             
+                {% else %}
+                    <p>
+                        No tienes un nodo asignado aún. Comunicate con el administrador para que te 
+                        proporcione uno. O completa tu perfil a continuacion para comenzar.
+                    </p>
+                {% endif %}
+            </div>
+            <div class="row">
+                <div class="btn-toolbar mb-3" role="toolbar" aria-label="Toolbar with button groups">
+                    <div class="btn-group me-2" role="group" aria-label="First group">
+                        <a href="{% url 'todos_los_envios' %}" type="button" class="btn btn-sm btn-dark">Todos mis envíos</a>
+                        <a href="#" type="button" class="btn btn-sm btn-dark">Impresiones</a>
+                        <a href="{% url 'ver_perfil' %}" type="button" class="btn btn-sm btn-dark">Perfil</a>
+                        <a href="#" type="button" class="btn btn-sm btn-dark ver">Escaner QR</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

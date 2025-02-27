@@ -8,16 +8,20 @@
     {% include "header.html" %}
 </header>
 
-<!--<div class= "content" id="page-container">-->
-    <div class="container" style="padding-top: 8px;">        
-        {% block content %}{% endblock  %}        
-    </div> 
-    <br>                                                                                                                                                        
-    {% include "footer.html" %}
-<!--</div>-->
+<div class="container" style="padding-top: 8px;">   
 
+    {% if user.is_authenticated %}
 
-    
+        {% include "cabecera.html" %}
 
+    {% endif %}
+        
+    {% block content %}{% endblock  %}  
+
+</div> 
+
+<br>
+<br>
+{% include "footer.html" %}
 
 {% endblock  %}

@@ -27,12 +27,16 @@ def cambio_estado(envio, perfil):
 
             return format_html(
                 """
-                    <select name="estado" class="form-control">
-                        <option value="{}">{}</option>
-                    </select>
-                    <br>
-                    <input type="submit" value="OK" class="btn btn-primary btn-sm" id="btn_ok">
-                
+
+                    <div class="col">
+                        <select name="estado" class="form-control">
+                            <option value="{}">{}</option>
+                        </select>
+                    </div>
+                    <div class="col">
+                        <input type="submit" value="OK" class="btn btn-primary btn-sm" id="btn_ok">
+                    </div>
+
                 """, parametro.ignorado.id, parametro.ignorado.nombre )
         
         else:
@@ -45,11 +49,15 @@ def cambio_estado(envio, perfil):
 
             return format_html( 
                 """
-                    <select name="estado" class="form-select">
-                        <option value="{}">{}</option>
-                    </select>
-                    <br>
-                    <input type="submit" value="OK" class="btn btn-primary btn-sm" id="btn_ok">
+
+                    <div class="col">
+                        <select name="estado" class="form-control">
+                            <option value="{}">{}</option>
+                        </select>
+                    </div>
+                    <div class="col">
+                        <input type="submit" value="OK" class="btn btn-primary btn-sm" id="btn_ok">
+                    </div>
                 
                 """, parametro.entregado.id, parametro.entregado.nombre )
         else:
@@ -59,3 +67,14 @@ def cambio_estado(envio, perfil):
     else:
         return format_html('<p>No hay cambios de estados disponibles</p>')
     
+@register.filter(name= 'class_form')
+def class_form(form):
+
+    for field in form:
+        
+        field.field.widget.attrs['style'] = "margin:5px;"
+        
+        field.field.widget.attrs['class'] = "form-control"
+
+    return form
+

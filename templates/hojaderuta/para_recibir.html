@@ -1,105 +1,89 @@
+
 {% load static %}
 
 {% load mi_templatetag %}
 
 <div class="row">
-    {% if a_recibir != 0 %}
-
-    <div class="col-xl-9 col-md-9 col-sm-12 col-xxl-9">           
-        <div class="table-responsive">
-            <table class="table  table-dark table-striped-columns table-sm">
-                <thead>
-                    <tr>
-                        <th style="color: #d63384;font-size: small;" scope="col">ID</th>
-                        <th style="color: #d63384;font-size: small;" scope="col">Origen</th>
-                        <th style="color: #d63384;font-size: small;" scope="col">Destino</th>
-                        <th style="color: #d63384;font-size: small;" scope="col">Estado</th>
-                    </tr>
-                </thead>
-                <tbody>
-                {% for envios in recibir_preparados %}
-                    
-                    {% for envio in envios %}
-        
-        
-                        <tr>                      
-                            <th scope="row">
-                                <a  href="{% url 'ver_envio' envio.id %}" style="font-size: small;">{{ envio.id }}</a>
-                            </th>
-                            <td>{{ envio.origen }} </td>
-                            <td>{{ envio|ver_destino }}</td>
-                            <td>{{ envio.estado }}</td>
-                        </tr> 
-        
-                    {% endfor %}
-        
-                    {% empty %}
-                        
-                        <p>No tienes envios preparados</p>
-                
-                {% endfor %}
-                
-                {% for envios in recibir_en_camino %}
-         
-                    {% for envio in envios %}
-                    
-        
-                            <tr>
-                                <th style="color: rgb(94, 94, 94);" scope="row">
-                                     <a  href="{% url 'ver_envio' envio.id %}" style="font-size: small;">{{ envio.id }}</a>
-                                </th>
-                                <td>{{ envio.origen }}</td>
-                                <td>{{ envio|ver_destino }}</td>
-                                <td>{{ envio.fecha }}</td>
-                                <td>{{ envio.hora }}</td>
-                                <td>{{ envio.estado }}</td>
-                            </tr>
-                    
-                    {% endfor %}
-        
-                    {% empty %}
-                        
-                        <p>No tienes envios en camino</p>
-        
-                {% endfor %}
-                </tbody>
-            </table>
-        </div>            
+    <div class="col-xxl-2 col-xl-2 col-md-2 col-sm-6 text-center">
+        <h4>
+            <b>Para recibir</b>
+        </h4>
     </div>
-    <div class="col-xl-3 col-md-3 col-sm-12 col-xxl-3">
-        <div class="row">
-            <h4>
-                <b>Para Recibir</b>
-            </h4>
-        </div>
-        <div class="row">
-            <img src="{% static 'imagenes/recibir.png' %}" class="card-img-top">
-        </div>
-        <div class="row">
+    <div class="col-xxl-6 col-xl-6 col-md-6 col-sm-6">
+        {% if a_recibir != 0 %}
             <p>Tienes {{ a_recibir }} envíos preparados / en camino. Para ver el detalle selecciona su Id. O crea nuevos envios desde el siguiente enlace.</p>
-        </div>    
-        <div class="row">
-            <a type="button" class="btn btn-primary btn-sm" href="{% url 'auth_logout' %}">Nuevo Envío</a>
-        </div>
-    </div> 
-    {% else %}
-    <div class="col-xl-3 col-xxl-3 col-sm-12 col-md-3"></div>
-
-    <div class="col-xl-6 col-md-6 col-sm-12 col-xxl-6">
-        <div class="row">
-            <h4>
-                <b>Para Recibir</b>
-            </h4>
-        </div>
-
-        <div class="row">
-            <p>No tienes envíos preparados / en camino para recibir.</p>
-        </div>    
+        {% else %}
+           <p>No tienes envíos preparados / en camino para recibir.</p>
+        {% endif %}
     </div>
-    <div class="col-xl-3 col-xxl-3 col-sm-12 col-md-3">
-        <div class="row">
-            <img src="{% static 'imagenes/recibir.png' %}" class="card-img-top">
-        </div>
+    <div class="col-xxl-2 col-xl-2 col-md-2 col-sm-2">
+        <a type="button" class="btn btn-primary btn-sm" href="{% url 'nuevo_envio' %}">Recibir Envío</a>
+    </div>  
+    <div class="col-xl-2 col-md-2 col-sm-12 col-xxl-2 text-center" style="margin-top: 20px;margin-bottom: 20px;">      
+        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" class="bi bi-boxes box4" viewBox="0 0 16 16">
+            <path d="M7.752.066a.5.5 0 0 1 .496 0l3.75 2.143a.5.5 0 0 1 .252.434v3.995l3.498 2A.5.5 0 0 1 16 9.07v4.286a.5.5 0 0 1-.252.434l-3.75 2.143a.5.5 0 0 1-.496 0l-3.502-2-3.502 2.001a.5.5 0 0 1-.496 0l-3.75-2.143A.5.5 0 0 1 0 13.357V9.071a.5.5 0 0 1 .252-.434L3.75 6.638V2.643a.5.5 0 0 1 .252-.434zM4.25 7.504 1.508 9.071l2.742 1.567 2.742-1.567zM7.5 9.933l-2.75 1.571v3.134l2.75-1.571zm1 3.134 2.75 1.571v-3.134L8.5 9.933zm.508-3.996 2.742 1.567 2.742-1.567-2.742-1.567zm2.242-2.433V3.504L8.5 5.076V8.21zM7.5 8.21V5.076L4.75 3.504v3.134zM5.258 2.643 8 4.21l2.742-1.567L8 1.076zM15 9.933l-2.75 1.571v3.134L15 13.067zM3.75 14.638v-3.134L1 9.933v3.134z"/>
+        </svg>
+        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" class="bi bi-boxes box5" viewBox="0 0 16 16">
+            <path d="M7.752.066a.5.5 0 0 1 .496 0l3.75 2.143a.5.5 0 0 1 .252.434v3.995l3.498 2A.5.5 0 0 1 16 9.07v4.286a.5.5 0 0 1-.252.434l-3.75 2.143a.5.5 0 0 1-.496 0l-3.502-2-3.502 2.001a.5.5 0 0 1-.496 0l-3.75-2.143A.5.5 0 0 1 0 13.357V9.071a.5.5 0 0 1 .252-.434L3.75 6.638V2.643a.5.5 0 0 1 .252-.434zM4.25 7.504 1.508 9.071l2.742 1.567 2.742-1.567zM7.5 9.933l-2.75 1.571v3.134l2.75-1.571zm1 3.134 2.75 1.571v-3.134L8.5 9.933zm.508-3.996 2.742 1.567 2.742-1.567-2.742-1.567zm2.242-2.433V3.504L8.5 5.076V8.21zM7.5 8.21V5.076L4.75 3.504v3.134zM5.258 2.643 8 4.21l2.742-1.567L8 1.076zM15 9.933l-2.75 1.571v3.134L15 13.067zM3.75 14.638v-3.134L1 9.933v3.134z"/>
+        </svg>
+        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" class="bi bi-boxes box6" viewBox="0 0 16 16">
+            <path d="M7.752.066a.5.5 0 0 1 .496 0l3.75 2.143a.5.5 0 0 1 .252.434v3.995l3.498 2A.5.5 0 0 1 16 9.07v4.286a.5.5 0 0 1-.252.434l-3.75 2.143a.5.5 0 0 1-.496 0l-3.502-2-3.502 2.001a.5.5 0 0 1-.496 0l-3.75-2.143A.5.5 0 0 1 0 13.357V9.071a.5.5 0 0 1 .252-.434L3.75 6.638V2.643a.5.5 0 0 1 .252-.434zM4.25 7.504 1.508 9.071l2.742 1.567 2.742-1.567zM7.5 9.933l-2.75 1.571v3.134l2.75-1.571zm1 3.134 2.75 1.571v-3.134L8.5 9.933zm.508-3.996 2.742 1.567 2.742-1.567-2.742-1.567zm2.242-2.433V3.504L8.5 5.076V8.21zM7.5 8.21V5.076L4.75 3.504v3.134zM5.258 2.643 8 4.21l2.742-1.567L8 1.076zM15 9.933l-2.75 1.571v3.134L15 13.067zM3.75 14.638v-3.134L1 9.933v3.134z"/>
+        </svg>
     </div>
-    {% endif %}  
 </div>
+
+{% if a_recibir != 0%}
+<div class="row">
+    <div class="col card-login">           
+        <table class="table table-dark table-striped-columns table-sm table-borderless">
+            <thead>
+                <tr>
+                    <th style="color: #d63384;font-size: small;" scope="col">Origen</th>
+                    <th style="color: #d63384;font-size: small;" scope="col">Destino</th>
+                    <th style="color: #d63384;font-size: small;" scope="col">Fecha</th>
+                    <th style="color: #d63384;font-size: small;" scope="col">Hora</th>
+                    <th style="color: #d63384;font-size: small;" scope="col">Estado</th>
+                    <th style="color: #d63384;font-size: small;" scope="col">ID</th>
+                </tr>
+            </thead>
+            <tbody>
+            {% for envios in recibir_preparados %}
+                
+                {% for envio in envios %}
+                    <tr>                     
+                        <td>{{ envio.origen }}</td>
+                        <td>{{ envio|ver_destino }}</td>
+                        <td>{{ envio.fecha }}</td>
+                        <td>{{ envio.hora }}</td>
+                        <td>{{ envio.estado }}</td>
+                        <th scope="row">
+                            <a  href="{% url 'ver_envio' envio.id %}" style="font-size: small;">{{ envio.id }}</a>
+                        </th>
+                    </tr> 
+    
+                {% endfor %}
+            
+            {% endfor %}
+
+            {% for envios in recibir_en_camino %}
+                
+                {% for envio in envios %}
+                    <tr>                     
+                        <td>{{ envio.origen }}</td>
+                        <td>{{ envio|ver_destino }}</td>
+                        <td>{{ envio.fecha }}</td>
+                        <td>{{ envio.hora }}</td>
+                        <td>{{ envio.estado }}</td>
+                        <th scope="row">
+                            <a  href="{% url 'ver_envio' envio.id %}" style="font-size: small;">{{ envio.id }}</a>
+                        </th>
+                    </tr> 
+    
+                {% endfor %}
+            
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>   
+</div>
+{% endif %}

@@ -1,11 +1,3 @@
-//html {
-//  position: relative;
- // }
-
-//h3 {
-  //color:rgba(13, 110, 253, .25);
-  
-//}
 
 body {
     margin: 0;
@@ -63,25 +55,16 @@ label {
   box-shadow: 0 0 0 .25rem rgba(13, 110, 253, .25);
 }
 
-//h3 {
-  //  color: $azul-base;
-   // border-color: $gris4;
-   // text-align: center;
-  //}
-
-//h4 {
-  //  color: $naranja-base2;
-   // border-color: $gris4;
-   // text-align: center;
-  //}
-
-//p {
- // color: $gris4;
-//}
+p {
+  display: none ;
+}
 
 .centrado {
   justify-content: center; 
   align-items: center;
   display: flex;
-  }
+}
 
+img {
+  display: none;
+}

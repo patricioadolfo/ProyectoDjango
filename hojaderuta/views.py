@@ -4,6 +4,9 @@ from django.http import Http404
 from farmacia.models import Parametros
 from hojaderuta.models import Envio
 from hojaderuta.forms import EnvioForm, EnvioOtroDestinoForm
+from django.http import JsonResponse
+import json
+from django.http import HttpResponse
 
 
 class Usuario(Parametros):    
@@ -196,7 +199,61 @@ class Usuario(Parametros):
         except:
 
             raise Http404
+        
+    def todos_los_envios(self, request):
 
+        self.params['todos_envios'] = []
+
+        if request.user.is_authenticated:
+
+            self.obtener_nodos(request)
+
+            self.params['form'] = EnvioForm()
+
+            for nodo in self.params['nodos_perfil']:
+
+                self.params['todos_envios'].append(self.envio.filter(origen = nodo.id))
+
+                self.params['todos_envios'].append(self.envio.filter(destino = nodo.id))
+
+            
+        return render(request, 'hojaderuta/todos_los_envios.html', self.params )
+  
+    def agregar(self, request, *args, **kwargs):
+
+        respuesta = {}
+
+        if request.method == "GET": 
+                    
+            self.params['recibir_preparados'] = []
+
+            self.params['recibir_en_camino'] = [] 
+
+            self.obtener_nodos(request)
+
+            for nodo in self.params['nodos_perfil']:
+                
+                self.params['recibir_preparados'].append( self.envio.filter( destino = nodo.id ).filter( estado = self.preparado ).exclude( origen = None ))
+
+                self.params['recibir_en_camino'].append( self.envio.filter( estado = self.en_camino ).filter( destino = nodo.id ).exclude( origen = None ))       
+        
+            
+            """            idenvio = request.GET.get("envio_id")
+            
+            idenvio_rec = idenvio[4:]
+            idenvio_rec = int(idenvio_rec)
+            el_envio = Envio.objects.get(id=idenvio_rec)
+            
+            respuesta['fecha'] = el_envio.fecha
+            respuesta['origen'] = el_envio.origen.nombre
+            respuesta['destino'] = el_envio.destino.nombre
+            respuesta['descripcion'] = el_envio.descripcion"""
+
+            mimetype = "application/json"
+            #return JsonResponse({})
+            return render(request, 'hojaderuta/index.html', self.params )
+            #HttpResponse(self.params)
+    
 usuario = Usuario()
 
 usuario.obtener_links()
