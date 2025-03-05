@@ -44,3 +44,46 @@ class EnvioOtroDestinoForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
 
         super(EnvioOtroDestinoForm, self).__init__(*args, **kwargs)
+
+class BuscarDestino(forms.Form):
+    
+    buscar = forms.CharField(
+        
+        label='Selecciona destino', 
+        
+        widget=forms.TextInput(
+            
+            attrs=
+            {
+                'class': 'form-control form-sm'
+                }
+            )
+        )
+    
+class FormFechas(forms.Form):
+    
+    desde = forms.CharField(
+        
+        label='Desde', 
+        
+        widget=forms.DateInput(
+            
+            attrs=
+            {
+                'class': 'form-control form-sm'
+                }
+            )
+        )
+    
+    hasta = forms.CharField(
+        
+        label='Hasta', 
+        
+        widget=forms.DateInput(
+            
+            attrs=
+            {
+            'class': 'form-control form-sm'
+             }
+            )
+        )

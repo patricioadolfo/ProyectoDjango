@@ -12866,7 +12866,7 @@ table td.r, table th.r {
 /* line 10, ../../../../mnt/0AA4097CA4096B8F/Django/farmacia/static_dev/scss/_login-logout.scss */
 .card-login {
   border: 1px solid #889696;
-  border-radius: 2%;
+  border-radius: 2em;
   padding: 2%;
   margin: 1%;
 }

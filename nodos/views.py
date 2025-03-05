@@ -9,6 +9,8 @@ class NodosDestinos(Parametros):
 
     def ver_nodos(self, request):
 
+        self.obtener_nodos(request)
+
         if request.user.is_authenticated:
 
             self.obtener_nodos_destinos(self.nodos)
@@ -20,6 +22,8 @@ class NodosDestinos(Parametros):
         return render(request, 'nodos/nodos.html', self.params )
 
     def ver_destinos(self, request):
+
+        self.obtener_nodos(request)
 
         if request.user.is_authenticated:
 
@@ -52,7 +56,6 @@ class CrearDestino(FormView):
         form.notificar()
 
         return super().form_valid(form)
-    
 
 class DestinoCreado(View):
 

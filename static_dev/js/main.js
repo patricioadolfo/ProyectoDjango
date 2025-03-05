@@ -1,35 +1,78 @@
 // Retorna info para abrir maps en modal
 
-function  verMaps() {
-    $(".btnModalMaps").click(function () {
+$(".btnModalMaps").on( "click", function () {
         let info = $(this).data('info');
         $('.maps').html(info);
     });
-};
 
 // Agranda la letra al pasar con el mouse por el elemento td (celda en tabla)
 $( "td" )
     .on( "mouseover", function() {
-        $( this ).css('font-size','medium');
+        $( this ).css('font-size','110%');
+        $( this ).css('color','#0dcaf0');
     } )
     .on( "mouseout", function() {
         $( this ).css('font-size','small');
+        $( this ).css('color','#fff');
 } );
 
-// Aparece parrafo e imagenes de forma lenta al cargase la pagina
+$( ".link-tabla" )
+    .on( "mouseover", function() {
+        $( this ).css('font-size','130%');
+        $( this ).css('color','#0dcaf0');
+    } )
+    .on( "mouseout", function() {
+        $( this ).css('font-size','small');
+        $( this ).css('color','#0d6efd');
+} );
 
-function parrafos() {
-    $( "p" ).slideDown( "slow" );
-    };   
+$( "p" ).slideDown( "slow" ); // Aparece parrafo e imagenes de forma lenta al cargase la pagina
 
-function verImagen() {
-        $( "img:hidden" ).fadeIn( 3000 );
-  } ;
-
-$(document).ready( function(){
-    parrafos();
-    verMaps();
-    verImagen();
-});
+$( "img:hidden" ).fadeIn( 3000 );
 
 
+  // Para Todos mis envios
+$( "#id_buscar" ).autocomplete(
+    { 
+        source:"/ver_envios" 
+    },
+    "classes.ui-autocomplete", "highlight",
+    "autoFocus", 
+    true,);
+
+$('#id_desde').datepicker({
+    dateFormat: "yy-mm-dd"
+    });
+
+$('#id_hasta').datepicker({
+    dateFormat: "yy-mm-dd"
+    });
+
+
+    $('.agregarDoc').click(function (event) { //Cuando se hace click en el elemento agregarDoc
+        "use strict";
+        event.preventDefault(); // Previene que se desencadenen otros scripts
+                
+        let envioId = $(this).parent().find('.envioId').val(); // De el elemento padre busca el valor del elemento envioId
+        
+        localStorage.setItem(envioId, 'envio');   // Guarda mi dato en el LocalStorage	
+
+    });
+
+function printDiv(nombreDiv) {
+    var contenido= document.getElementById(nombreDiv).innerHTML;   
+      
+    document.body.innerHTML = contenido;
+
+    window.print();
+
+    let i;
+    for(i = 0; i < localStorage.length; i++){ 		// bucle for recorre todas las claves del LocalStorage
+        let claveEliminar = localStorage.key(i);	// Define la clave a eliminar
+        if(claveEliminar.startsWith("imp_")){		// Compueba si no comienza con "imp_"
+            localStorage.removeItem(claveEliminar);	// si cumple con la declaracion lo elimina
+        }
+    };
+
+    location.reload(); 
+}

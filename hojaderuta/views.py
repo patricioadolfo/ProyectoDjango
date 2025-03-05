@@ -3,14 +3,10 @@ from django.shortcuts import redirect
 from django.http import Http404
 from farmacia.models import Parametros
 from hojaderuta.models import Envio
-from hojaderuta.forms import EnvioForm, EnvioOtroDestinoForm
-from django.http import JsonResponse
-import json
-from django.http import HttpResponse
-
+from hojaderuta.forms import EnvioForm, EnvioOtroDestinoForm, BuscarDestino, FormFechas
 
 class Usuario(Parametros):    
-    
+
     def index(self, request):
         """
         Retorna diccionario. Con los nodos asociados al perfil, la cuenta de los pedidos creados 
@@ -118,64 +114,6 @@ class Usuario(Parametros):
         self.params['form'] = EnvioForm()
 
         return render(request, 'hojaderuta/form_nuevo_envio_otrodestino.html', self.params )    
-  
-    def mis_envios(self, request):
-
-        self.params['preparados'] = []
-
-        self.params['en_camino'] = []  
-
-        if request.user.is_authenticated:
-
-            self.obtener_nodos(request)
-
-            self.obtener_nodos_destinos(self.nodos)
-
-            self.params['form'] = EnvioForm()
-
-            for nodo in self.params['perfil']:
-                
-                self.params['preparados'].append(self.envio.filter(origen = nodo.nodo.id).filter(estado = self.preparado).exclude( origen = None ).exclude( destino = None ))
-
-                self.params['en_camino'].append(self.envio.filter(estado = self.en_camino).filter(origen = nodo.nodo.id).exclude( origen = None ).exclude( destino = None ))       
-
-        return render(request, 'hojaderuta/envios.html', self.params )
-
-    def otros_destinos(self, request):
-
-        self.params['preparados'] = []
-
-        self.params['en_camino'] = []
-
-        if request.user.is_authenticated:
-
-            if request.method == "POST":       
-        
-                form = EnvioOtroDestinoForm(request.POST)  
-
-                if form.is_valid():
-
-                    origen = form.cleaned_data['origen']
-
-                    otro_destino = form.cleaned_data['otro_destino']
-
-                    descripcion = form.cleaned_data['descripcion']
-
-                    nuevo_envio = Envio( origen = origen, otro_destino = otro_destino, descripcion = descripcion, usuario = request.user, estado = self.preparado )
-                    
-                    nuevo_envio.save()
-                    
-                    return redirect('otros_destinos')  
-
-            self.obtener_nodos(request)
-
-            self.obtener_nodos_destinos(self.destinos)
-
-            for nodo in self.params['perfil']:
-                
-                self.params['preparados'].append(self.envio.filter(origen = nodo.nodo.id).filter( destino = None ).exclude( estado = self.entregado ))   
-
-        return render(request, 'hojaderuta/otros_destinos.html', self.params )
 
     def ver_envio(self, request, envio_id): 
 
@@ -199,61 +137,22 @@ class Usuario(Parametros):
         except:
 
             raise Http404
-        
+  
     def todos_los_envios(self, request):
 
-        self.params['todos_envios'] = []
+        self.obtener_nodos(request)
 
-        if request.user.is_authenticated:
+        form = BuscarDestino()
 
-            self.obtener_nodos(request)
-
-            self.params['form'] = EnvioForm()
-
-            for nodo in self.params['nodos_perfil']:
-
-                self.params['todos_envios'].append(self.envio.filter(origen = nodo.id))
-
-                self.params['todos_envios'].append(self.envio.filter(destino = nodo.id))
-
-            
-        return render(request, 'hojaderuta/todos_los_envios.html', self.params )
-  
-    def agregar(self, request, *args, **kwargs):
-
-        respuesta = {}
-
-        if request.method == "GET": 
-                    
-            self.params['recibir_preparados'] = []
-
-            self.params['recibir_en_camino'] = [] 
-
-            self.obtener_nodos(request)
-
-            for nodo in self.params['nodos_perfil']:
-                
-                self.params['recibir_preparados'].append( self.envio.filter( destino = nodo.id ).filter( estado = self.preparado ).exclude( origen = None ))
-
-                self.params['recibir_en_camino'].append( self.envio.filter( estado = self.en_camino ).filter( destino = nodo.id ).exclude( origen = None ))       
+        form_fechas = FormFechas()
         
-            
-            """            idenvio = request.GET.get("envio_id")
-            
-            idenvio_rec = idenvio[4:]
-            idenvio_rec = int(idenvio_rec)
-            el_envio = Envio.objects.get(id=idenvio_rec)
-            
-            respuesta['fecha'] = el_envio.fecha
-            respuesta['origen'] = el_envio.origen.nombre
-            respuesta['destino'] = el_envio.destino.nombre
-            respuesta['descripcion'] = el_envio.descripcion"""
+        self.params['form']= form
 
-            mimetype = "application/json"
-            #return JsonResponse({})
-            return render(request, 'hojaderuta/index.html', self.params )
-            #HttpResponse(self.params)
-    
+        self.params['form_fechas']= form_fechas
+        
+        return render(request, 'hojaderuta/todos_los_envios.html', self.params)
+
+
 usuario = Usuario()
 
 usuario.obtener_links()

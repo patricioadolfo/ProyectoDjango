@@ -81,5 +81,52 @@
         </form> 
     </div>
 </div>
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.12.7/dist/gsap.min.js"></script>
+
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.12.7/dist/ScrollTrigger.min.js"></script>
+
+<script>
+    gsap.to( 
+     ".box1",{
+        scrollTrigger: {
+                trigger: ".box1",
+                toggleActions: "restart none none none",
+            }, 
+         x: 0,
+         y: 25, 
+         fill: '#d63384', //code
+         rotation: 360, 
+         duration: 4,
+         scale: 2  
+     });
+
+gsap.to( 
+    ".box2",{
+        scrollTrigger: {
+                trigger: ".box2",
+                toggleActions: "restart none none none",
+            },
+        x: 0,
+        y: -10, 
+        fill: '#0dcaf0', //cian
+        rotation: 360, 
+        duration: 4, 
+        scale: 2 
+    });
+ 
+gsap.to( 
+    ".box3",{
+        scrollTrigger: {
+                trigger: ".box3",
+                toggleActions: "restart none none none",
+            }, 
+        x: 0,
+        y: 25, 
+        fill: '#712cf9', //violeta
+        rotation: 360, 
+        duration: 4, 
+        scale: 2 
+    });
+</script>
 
 {% endblock %}
