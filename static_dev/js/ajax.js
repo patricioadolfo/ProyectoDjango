@@ -37,16 +37,18 @@ function verImpresiones(lista){
 			$('#bodyImp').html("");	
 			for(valor = 0; valor < json.length; valor++){ 
 				let key = json[valor];
-	
-				valor_retornado ="<div class='col-xl-3 col-md-4 col-sm-6 col-xxl-3 card-login'>"+              
-									"<div class='row' id="+key.id+" style='margin:auto; width:150px; height:150px'></div>"+
-									"<br>"+
-									"<div class='row text-center'>"+
-										"<li style='margin: auto;'>Origen: "+key.origen+"</li>"+
-										"<li style='margin: auto;'>Destino: "+key.destino+"</li>"+
-										"<li style='margin: auto;'>Destino: "+key.otro_destino+"</li>"+
-										"<li style='margin: auto;'>Fecha: "+key.fecha+"</li>"+
+
+				valor_retornado ="<div class='row card-login'style='max-width: 95%;'>"+
+									"<div class='col-xl-2 col-md-2 col-sm-5 col-xxl-2'>"+
+										"<div id="+key.id+"></div>"+
 									"</div>"+
+									"<div class='col-xl-5 col-md-5 col-sm-12 col-xxl-5'>"+
+										"<br>"+
+										"<li>ID: "+key.id+"</li>"+
+										"<li>Desde "+ key.origen+" hasta "+key.destino+" Creado el "+key.fecha+
+											", a las "+key.hora+" hs por el usuario "+key.usuario+".</li>"+
+									"</div>"+
+									//"<br>"+
 								"</div>";
 				
 				$('#bodyImp').append(valor_retornado);

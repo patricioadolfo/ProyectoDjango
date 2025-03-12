@@ -115,11 +115,14 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LANGUAGE_CODE = 'es-ar'
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'America/Argentina/Buenos_Aires'
 
 USE_I18N = True
 
 USE_TZ = False #True
+
+USE_L10N = True
+
 
 
 # Static files (CSS, JavaScript, Images)
@@ -148,7 +151,11 @@ ACCOUNT_ACTIVATION_DAYS = 7 # One-week activation window; you may, of course, us
 
 REGISTRATION_AUTO_LOGIN = True # Automatically log the user in.
 
-SITE_ID= 1
+SITE_ID= 2
+
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+
+ACCOUNT_EMAIL_VERIFICATION = "none"
 
 # Config Django-debug-toolbar 
 

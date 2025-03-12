@@ -12700,32 +12700,23 @@ img {
 }
 
 /* line 24, ../../../../mnt/0AA4097CA4096B8F/Django/farmacia/static_dev/scss/_cards.scss */
-.maps {
-  border: 1px solid #1548b7;
-  position: relative;
-  overflow: hidden;
-  width: 100%;
-  padding-top: 56.25%;
-}
-
-/* line 32, ../../../../mnt/0AA4097CA4096B8F/Django/farmacia/static_dev/scss/_cards.scss */
 .card-title {
   color: #11388f;
 }
 
-/* line 36, ../../../../mnt/0AA4097CA4096B8F/Django/farmacia/static_dev/scss/_cards.scss */
+/* line 28, ../../../../mnt/0AA4097CA4096B8F/Django/farmacia/static_dev/scss/_cards.scss */
 .card-img-top {
   width: 110px;
   height: 110px;
 }
 
-/* line 41, ../../../../mnt/0AA4097CA4096B8F/Django/farmacia/static_dev/scss/_cards.scss */
+/* line 33, ../../../../mnt/0AA4097CA4096B8F/Django/farmacia/static_dev/scss/_cards.scss */
 #card {
   padding-top: 10px;
   padding-bottom: 10px;
 }
 
-/* line 46, ../../../../mnt/0AA4097CA4096B8F/Django/farmacia/static_dev/scss/_cards.scss */
+/* line 38, ../../../../mnt/0AA4097CA4096B8F/Django/farmacia/static_dev/scss/_cards.scss */
 .responsive-iframe {
   position: absolute;
   top: 0;
@@ -12754,6 +12745,13 @@ footer {
 .btn {
   background-color: #11388f;
   border-color: #1548b7;
+}
+
+/* line 11, ../../../../mnt/0AA4097CA4096B8F/Django/farmacia/static_dev/scss/_buttons.scss */
+.abajo {
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
 }
 
 /* line 11, ../../../../mnt/0AA4097CA4096B8F/Django/farmacia/static_dev/scss/_tables.scss */

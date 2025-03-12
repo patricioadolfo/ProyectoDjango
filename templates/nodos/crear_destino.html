@@ -1,37 +1,39 @@
 {% extends "layout.html" %}
 
 {% load static %}
+{% load mi_templatetag %}
 
 {% block content %}
 
               
 {% if user.is_authenticated %}
 <div class="container">
- 
-    <form action="" method="post">
+    <div class="row">
+        <div class="col-xl-4 col-md-4 col-sm-12 col-xxl-4 text-center">
+            <br>
+            <h4>
+                Formulario Nuevo Destino
+            </h4>
+            <br>
+            <p>Completa este formulario para crear un nuevo destino. Recuerda..todos los campos son importantes.</p>
+            <p>Para completar el campo maps, dirigete a Google Maps y busca la direccion deseada, 
+                una vez que la encuentres selecciona el icono de compartir y luego la pestaña "Incorporar un mapa". 
+                Selecciona copiar html y pegalo en el campo maps</p>
+        </div>
+        <div class="col-xl-6 col-md-6 col-sm-12 col-xxl-6 card-login">
+
+            <form action="" method="post">
         
-        {% csrf_token %}
-        <div class="col">
-
-            {% for row in form %}
-            
-            <div class="row">
-                
-                <div class="col">
-                
-                    {{ row }}
-                
-                </div>
-            
-            </div>
-            
-            {% endfor %}
-
-            <button type="submit">Crear</button>
+                {% csrf_token %}
+                {{ form|class_form }}
+                <br>
+                <button class="btn btn-primary btn-sm" type="submit">Crear</button>
+        
+            </form>
 
         </div>
+    </div>
 
-    </form>
 
 </div>
 {% else %}

@@ -19,14 +19,14 @@
         <form id="searchr-form"   action="" method="post" >{% csrf_token  %}
             <div class="row">
             {% for field in form %}
-                <div class="col campo_busqueda col-xs-12 "  >
-                    {{ field }}
+                <div class="col-md-6 col-sm-6 col-xl-6 col-xxl-6 campo_busqueda"  >
                     {{ field.label_tag  }}
+                    {{ field }}
                 </div>
                 {% endfor %}
                 <br>
-                <div class="col">
-                    <input class="btn btn-primary btn-sm" type="button" id="boton_prod" value="Ver datos"/>
+                <div class="col-md-4 col-sm-4 col-xl-4 col-xxl-4 abajo">
+                        <input class="btn btn-primary btn-sm" type="button" id="boton_prod" value="Ver envios"/>
                 </div>
             </div>
         </form>
@@ -37,13 +37,13 @@
             <div class="row">
                 {% for field in form_fechas %}
                 <div class="col">
-                    {{ field }}
                     {{ field.label_tag  }}
+                    {{ field }}
                 </div>
                 {% endfor %}
                 <br>
-                <div class="col">
-                    <input class="btn btn-primary btn-sm" type="button" id="porFecha" value="Ver datos"/>
+                <div class="col abajo">
+                    <input class="btn btn-primary btn-sm" type="button" id="porFecha" value="Ver envios"/>
                 </div>              
             </div>
         </form>

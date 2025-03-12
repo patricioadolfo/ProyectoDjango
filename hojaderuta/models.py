@@ -32,7 +32,7 @@ class Envio(models.Model):
     
     class Meta:
         
-        ordering = ["-id"]
+        ordering = ["-fecha"]
 
     def __str__(self):
         """ 

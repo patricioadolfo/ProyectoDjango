@@ -49,30 +49,32 @@ $('#id_hasta').datepicker({
     });
 
 
-    $('.agregarDoc').click(function (event) { //Cuando se hace click en el elemento agregarDoc
-        "use strict";
-        event.preventDefault(); // Previene que se desencadenen otros scripts
-                
-        let envioId = $(this).parent().find('.envioId').val(); // De el elemento padre busca el valor del elemento envioId
-        
-        localStorage.setItem(envioId, 'envio');   // Guarda mi dato en el LocalStorage	
+$('.agregarDoc').click(function (event) { //Cuando se hace click en el elemento agregarDoc
+    "use strict";
+    event.preventDefault(); // Previene que se desencadenen otros scripts
+            
+    let envioId = $(this).parent().find('.envioId').val(); // De el elemento padre busca el valor del elemento envioId
+    
+    localStorage.setItem(envioId, 'envio');   // Guarda mi dato en el LocalStorage	
 
-    });
+    alert(envioId + " enviado a impresiones");
+
+});
 
 function printDiv(nombreDiv) {
     var contenido= document.getElementById(nombreDiv).innerHTML;   
-      
+    let i;
+    for(i = 0; i < localStorage.length; i++){ 		// bucle for recorre todas las claves del LocalStorage
+        let claveEliminar = localStorage.key(i);
+        if(claveEliminar.startsWith("imp_")){		// Compueba si no comienza con "imp_"
+            localStorage.removeItem(claveEliminar);	// si cumple con la declaracion lo elimina
+            i--; // Resta uno ya que el la claves del localstorage son menores al eliminar elemento  
+        };
+    };
+
     document.body.innerHTML = contenido;
 
     window.print();
 
-    let i;
-    for(i = 0; i < localStorage.length; i++){ 		// bucle for recorre todas las claves del LocalStorage
-        let claveEliminar = localStorage.key(i);	// Define la clave a eliminar
-        if(claveEliminar.startsWith("imp_")){		// Compueba si no comienza con "imp_"
-            localStorage.removeItem(claveEliminar);	// si cumple con la declaracion lo elimina
-        }
-    };
-
     location.reload(); 
-}
+};

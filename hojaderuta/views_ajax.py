@@ -1,7 +1,6 @@
 from farmacia.models import Parametros
 from django.views.generic import View
 import json
-from django.shortcuts import render
 from django.http import HttpResponse
 
 
@@ -226,22 +225,17 @@ class VerImpresones(View):
                 
                 except:
 
-                    data['destino'] = "---"
+                    data['destino'] = envio.otro_destino.nombre
 
-                try:
-
-                    data['otro_destino'] = envio.otro_destino.nombre
-                
-                except:
-
-                    data['otro_destino'] = "---"
                         
                 data['fecha'] = str(envio.fecha)  
                 
                 data['hora'] = str(envio.hora) 
                 
                 data['estado'] = envio.estado.nombre                   
-            
+                
+                data['usuario'] = envio.usuario.username
+                
                 results.append(data)
 
             data_json = json.dumps(results)

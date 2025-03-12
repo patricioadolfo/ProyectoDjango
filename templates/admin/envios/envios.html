@@ -1,23 +1,30 @@
 {% extends "admin/base_site.html" %}
+{% load qr_code %}
+{% load i18n static %}
 
 
 {% block content %}
-
-    <div class="container">
-
-        <div class="row">
-            <div class="col-12">
-                {% for envio in envios %}
-                
-                    <li>{{ envio.usuario }}</li>
-                    <li>{{ envio.estado }}</li>
-                    <li>{{ envio.descripcion }}</li>
-                    <li>{{ envio.fecha }}</li>
-                
-                {% endfor %}
-            </div>
-        </div>
+<div class="row">
+    
+    <div class="flex-container"> 
+        {% for envio in envios %}
+        <div class="col">
+            <h5>{{ envio.id }}</h5>
+            <li>Usuario {{ envio.usuario }}</li>
+            <li>Estado {{ envio.estado }}</li>
+            <li>Descripcion {{ envio.descripcion }}</li>
+            <li>Fecha {{ envio.fecha }}</li>
+        </div>    
+        <div class="related-widget-wrapper">
+            {% qr_from_data envio.id size="m" dark_color="#dee2e6" light_color="#212529" %}
+        </div>           
+        {% endfor %}
     </div>
+    
 
+</div>
 
 {% endblock %}
+
+
+

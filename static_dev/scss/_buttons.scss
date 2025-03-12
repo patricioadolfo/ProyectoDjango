@@ -7,3 +7,9 @@
 background-color: $azul-base;
 border-color: $azul-base-2;
 }
+
+.abajo {
+    display:flex;
+    align-items: flex-end;
+    justify-content: center;
+}
