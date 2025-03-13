@@ -57,13 +57,19 @@ class CrearDestino(FormView):
 
         return super().form_valid(form)
 
-class DestinoCreado(View):
+class DestinoCreado(View,):
+
+    parametros = Parametros()
 
     template = 'nodos/destino_creado.html'
 
     def get(self, request):
 
-        return render(request, self.template, {'mensaje': 'Destino Creado'})
+        self.parametros.obtener_nodos(request)
+
+        self.parametros.params['mensaje'] = 'Destino creado con exito'
+
+        return render(request, self.template, self.parametros.params )
 
 
 nodos_destinos= NodosDestinos()
