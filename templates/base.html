@@ -4,18 +4,26 @@
 <html lang="en">
  
 	<head>
+
+		<title>{% block title %}Hoja de Ruta{% if page_title %}{{ page_title }} - {% endif %}{{ site_name }}{% endblock %}</title>
+		
+		<!--META-->	
 		<meta charset="utf-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1">
-		<title>{% block title %}Hoja de Ruta{% if page_title %}{{ page_title }} - {% endif %}{{ site_name }}{% endblock %}</title>
-		<meta name="keywords" content="{{ palabras_claves }}" />
-		<meta name="description" content="{{ descripcion }}" />
+		<meta name="keywords" content="Envío intersucursal, hoja de ruta, envio de paquetes" />
+		<meta name="description" content="Servicio que facilita el movimiento de mercancías o documentos entre las diferentes sucursales de una empresa, optimizando procesos y mejorando la eficiencia en la gestión de operaciones." />
+		<meta name="author" content="Patricio Lamonica">
+		<meta http-equiv="refresh" content="30">
+
 		<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js" integrity="sha384-7+zCNj/IqJ95wo16oMtfsKbZ9ccEh31eOz1HGyDuCQ6wgnyJNSYdrPa03rtR1zdB" crossorigin="anonymous"></script>
 		<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js" integrity="sha384-QJHtvGhmr9XOIpI6YVutG+2QOK9T+ZnN4kzFN1RtK3zEFEIsxhlmWl5/YESvpZ13" crossorigin="anonymous"></script>
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
-		<link rel="stylesheet" type="text/css" href="{% static 'css/main.css' %}" />
 		<script src="{% static 'js/bootstrap.min.js' %}"></script>
-		<link rel="stylesheet" type="text/css" href="{% static 'css/jquery-ui.css' %}" />
 		<script src="https://unpkg.com/qrious@4.0.2/dist/qrious.js"></script> <!--Para QR-->
+		
+		<link rel="stylesheet" type="text/css" href="{% static 'css/main.css' %}" />
+		<link rel="stylesheet" type="text/css" href="{% static 'css/jquery-ui.css' %}" />
+		
 	</head>
   
   	<body>
@@ -25,15 +33,31 @@
 		{% block scripts %}
 		
 		<!-- jquery para producción -->
+	
 		<script src="https://cdn.jsdelivr.net/jquery.cookie/1.4.1/jquery.cookie.min.js"></script> 
-
 		<script type="text/javascript" src="{% static 'js/jquery-ui.min.js' %}"></script> 
 		<script type="text/javascript" src="{% static 'js/ajax.js' %}"></script>	
 		<script src="{% static 'js/main.js' %}"></script>
-
 		<script type="text/javascript" src="{% static 'js/qrcode.min.js' %}"></script>
-		
-		
+
+		<script type="application/ld+json">
+			{
+			  "@context": "https://schema.org",
+			  "@type": "Organization",
+			  "name": "Farmacia del Aguila",
+			  "url": "https://farmaciasdelaguila.com.ar/",
+			  "logo": "",
+			  "contactPoint": {
+				"@type": "ContactPoint",
+				"telephone": "1132264970",
+				"contactType": "customer service",
+				"areaServed": ["AF","AR"],
+				"availableLanguage": "es"
+			  },
+			  "sameAs": "https://farmaciasdelaguila.com.ar/"
+			}
+			</script>
+			
 		{% endblock  %}
 	</body>
 

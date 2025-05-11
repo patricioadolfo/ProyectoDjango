@@ -1,3 +1,4 @@
+{% load static %}
 
 <footer class="d-flex flex-wrap justify-content-between align-items-center border-top bg-dark" data-bs-theme="dark">
 	  
@@ -10,19 +11,27 @@
 	  </div>
 	  <ul class="nav col-md-4 justify-content-end list-unstyled d-flex" style="padding-right:20px;">
 		{% if user.is_authenticated %}
-		{% for link in links %}	
-		<li class="ms-3" style="padding: 10px;">
-			<a class="text-body-secondary" href="{{ link.url }}">
-				<div class="row">
-					<img src="/media/{{ link.icono }}" width="24" height="24">
-				</div>
-				<div class="row">
-					{{ link.nombre }}
-				</div>
-				
-			</a>
-		</li>
-		{% endfor %}
+
+			{% for link in links %}	
+			<li class="ms-3" style="padding: 10px;">
+				<a class="text-body-secondary" href="{{ link.url }}">
+					<div class="row">
+						<img src="{{ link.icono.url }}" width="24" height="24">
+					</div>
+					<div class="row">
+						{{ link.nombre }}
+					</div>				
+				</a>
+			</li>
+			{% endfor %}
+			<li class="ms-3" style="padding: 10px;">
+				<a class="text-body-secondary" href="{% url 'preguntas_frecuentes' %}">
+					<div class="row">
+						<img src="{% static 'imagenes/faq.png' %}" width="24" height="24">
+					</div>
+					<div class="row">FAQ</div>				
+				</a>
+			</li>
 		{% endif %}
 	</ul>
 </footer>

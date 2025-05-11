@@ -1,0 +1,39 @@
+{% extends "layout.html" %}
+
+{% load static %}
+
+{% block content %}
+
+   
+{% if user.is_authenticated %}
+    <div class="container">
+        <div class="row">
+            <div class="row">
+                <h3>
+                    <b>FAQ</b>
+                </h3>
+            </div>
+            <div class="row">
+                <p>En esta sección verás las preguntas frecuentes acerca de este sitio. </p>
+                </div>
+        </div>
+        <br>
+        <div class="row">
+            <div class="col-12" >
+            {% for pregunta in preguntas %}
+        
+                <h4>{{pregunta.titulo}}</h4>
+                {{pregunta.contenido|safe}}
+    
+            {%endfor%}
+            </div>
+        </div>
+    </div>
+           
+
+{% else %}
+    {% include 'titulo.html' %}
+    {% include "login-register.html" %}
+{% endif %}
+
+{% endblock %}

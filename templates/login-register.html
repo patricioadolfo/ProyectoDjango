@@ -2,19 +2,19 @@
 
 <div class="container">
     <div class="row">
-        <div class="col-sm-12 col-md-6 col-xl-6 col-xxl-6 image-center">
+        <div itemscope itemtype="https://schema.org/TravelAction" class="col-sm-12 col-md-6 col-xl-6 col-xxl-6 image-center">
             <br>
-            <img src="{% static 'imagenes/misenvios.png' %}" width="300" height="300px">
+            <img itemprop="image" src="{% static 'imagenes/misenvios.png' %}" width="300" height="300px">
         </div>
         
         <div class="col-sm-12 col-md-6 col-xl-6 col-xxl-6 text-padding-top">
             
-            <p class="p-color">Dentro de este sitio podrás:
+            <p itemscope itemtype="https://schema.org/TravelAction" class="p-color">Dentro de este sitio podrás:
                 
-                <li class="p-color">Crear envíos desde tus nodos asignados y ver su estado actual.</li>
-                <li class="p-color">Consultar nodos disponibles</li>
-                <li class="p-color">Ver envíos que otros usuarios tienen para ti y recibirlos.</li>
-                <li class="p-color">Crear nuevos destinos para tus envíos.</li>
+                <li itemprop="potentialAction" class="p-color">Crear envíos desde tus nodos asignados y ver su estado actual.</li>
+                <li itemprop="potentialAction" class="p-color">Consultar nodos disponibles</li>
+                <li itemprop="potentialAction" class="p-color">Ver envíos que otros usuarios tienen para ti y recibirlos.</li>
+                <li itemprop="potentialAction" class="p-color">Crear nuevos destinos para tus envíos.</li>
             </p>
             
             <p class="p-color-gris">

@@ -25,7 +25,11 @@ SECRET_KEY = 'django-insecure-4*lydj-i#1c8n-uqy!rlrs)tn63i4!kd)--7ywn^5l1t86083^
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['*']
+TEMPLATE_DEBUG = True
+
+ALLOWED_HOSTS = ["*", "127.0.0.1"]
+
+#ALLOWED_HOSTS = ['*' ]
 
 # Application definition
 
@@ -40,13 +44,20 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'captcha', # Django-simple-captcha
     'qr_code', # Django-qr-code
+    'rest_framework',
+    'sslserver',
+    'django.contrib.sitemaps',
+    'ckeditor',
+    'ckeditor_uploader',
     # Mis apps 
-    'nodos.apps.NodosConfig',
     'estados.apps.EstadosConfig',
+    'nodos.apps.NodosConfig',
     'hojaderuta.apps.HojaderutaConfig',
     'perfiles.apps.PerfilesConfig',
     'impresoras.apps.ImpresorasConfig',
     'link.apps.LinkConfig',
+    'api.apps.ApiConfig',
+    'FAQ.apps.FaqConfig',
 ]
 
 MIDDLEWARE = [
@@ -90,7 +101,14 @@ DATABASES = {
     }
 }
 
-
+#DATABASES = {
+#    'default': {
+#        'ENGINE': 'django.db.backends.mysql',
+#        'NAME': 'hojaderuta',
+#        'USER': 'patricio',
+#        'PASSWORD': 'Pato53902',
+#   }
+#}
 # Password validation
 # https://docs.djangoproject.com/en/5.1/ref/settings/#auth-password-validators
 
@@ -180,3 +198,7 @@ if DEBUG:
     DEBUG_TOOLBAR_CONFIG = {
         'INTERCEPT_REDIRECTS': False,
     }
+
+CKEDITOR_JQUERY_URL = '//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js' #jquery para ckeditor
+
+CKEDITOR_UPLOAD_PATH = "uploads/"

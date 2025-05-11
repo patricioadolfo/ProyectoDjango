@@ -18,6 +18,19 @@ from django.contrib import admin
 from django.urls import path, include
 from django.conf import settings
 from django.conf.urls.static import static
+from django.contrib.sitemaps.views import sitemap
+from nodos.sitemaps import NodosSiteMaps, DestinosSitemaps
+from hojaderuta.sitemaps import HojaDeRutaSiteMaps
+
+sitemaps = {
+
+    'nodos': NodosSiteMaps,
+
+    'destinos': DestinosSitemaps,
+
+    'hojaderuta': HojaDeRutaSiteMaps,
+}
+
 
 urlpatterns = [
     
@@ -31,7 +44,15 @@ urlpatterns = [
     
     path('accounts/', include('registration.backends.default.urls')),
 
-    path('captcha/', include( 'captcha.urls')),
+    path('captcha/', include('captcha.urls')),
+
+    path('api/', include('api.urls')),
+
+    path('FAQ/', include('FAQ.urls')),   
+
+    path('sitemap.xml', sitemap, {'sitemaps': sitemaps}, name= 'django.contrib.sitemaps.views.sitemap' ),
+
+    path('ckeditor/', include('ckeditor_uploader.urls')),           
 
 ]+ static(settings.MEDIA_URL, document_root = settings.MEDIA_ROOT)
 
